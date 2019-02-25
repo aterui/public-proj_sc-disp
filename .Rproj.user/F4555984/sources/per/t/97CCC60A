@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547840696783.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2213729125",
+    "id" : "97CCC60A",
+    "lastKnownWriteTime" : 1548042540,
+    "last_content_update" : 1548042540345,
+    "path" : "~/GitHub/SC_dispersal_project/bayesmodel/inits_model_laplace.R",
+    "project_path" : "bayesmodel/inits_model_laplace.R",
+    "properties" : {
+        "cursorPosition" : "11,2",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

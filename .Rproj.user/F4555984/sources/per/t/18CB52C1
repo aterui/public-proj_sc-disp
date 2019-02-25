@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547946346434.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1010622510",
+    "id" : "18CB52C1",
+    "lastKnownWriteTime" : 1547949951,
+    "last_content_update" : 1547949951616,
+    "path" : "~/GitHub/SC_dispersal_project/datasort_Vectorize.R",
+    "project_path" : "datasort_Vectorize.R",
+    "properties" : {
+        "cursorPosition" : "94,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
