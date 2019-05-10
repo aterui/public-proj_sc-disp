@@ -1,11 +1,14 @@
-# --- Data preparation ---
+source("function_f_env.R")
+
+# Water level and temperature data ----
   ##Water level
-  WL <- read.csv("data/WaterLevel_edit.csv")
+    WL <- read.csv("data/WaterLevel_edit.csv")
   ##Water temperature
-  WT <- read.csv("data/WaterTemp_data.csv"); WT <- WT[is.na(WT$Indian_Temp)==0,]
-  WT$Date <- as.Date(WT$Date)
-  WT$Jdate <- julian.Date(WT$Date)
-  
+    WT <- read.csv("data/WaterTemp_data.csv"); WT <- WT[is.na(WT$Indian_Temp)==0,]
+    WT$Date <- as.Date(WT$Date)
+    WT$Jdate <- julian.Date(WT$Date)
+
+# Data sort ----
   ##Todd
     ###Compile by-species data
     dat1 <- read.csv("data/Vdata_Todd_STJ2019-01-13.csv"); dat1$species <- "STJ"
@@ -14,38 +17,11 @@
     datT <- rbind(dat1, dat2, dat3)
     datT$Stream <- "Todd"
     
-    ###Extract date range for each capture-recapture session
-    date_range_Todd <- cbind( tapply(datT$St_Date, datT$Period, min), tapply(datT$End_Date, datT$Period, max, na.rm=T) )
-      ####Water level
-      WLTodd <- sapply(1:nrow(date_range_Todd), function(x){
-                ##### in-funcion: extract water level data during each capture-recapture interval
-                WL$Todd_WL[which(WL$Jdate == date_range_Todd[x,1]):which(WL$Jdate == date_range_Todd[x,2])]
-                })
-      ####Water temperature
-      WTTodd <- sapply(1:nrow(date_range_Todd), function(x){
-                ##### in-funcion: extract water temp data during each capture-recapture interval
-                stID <- min(which(WT$Jdate == date_range_Todd[x,1]) )
-                endID <- max(which(WT$Jdate == date_range_Todd[x,2]) )
-                WT$Todd_Temp[stID:endID]
-                })
-      
-    ###Quantiles for water level (whole time series)
-    QT <- quantile(WL$Todd_WL, c(0.9,0.95,0.99))
-    ###Presence/Absence of flood events (X > 90,95,99 percentiles)
-    QT90 <- sapply(WLTodd, function(x)sum(x > QT[1]))
-    QT95 <- sapply(WLTodd, function(x)sum(x > QT[2]))
-    QT99 <- sapply(WLTodd, function(x)sum(x > QT[3]))
-    ###Sigma
-    QT_sigma <- sapply(WLTodd, sd)
-    ###Mean water temperture for each period
-    WTempT <- sapply(WTTodd, mean, na.rm = T)
-        
-    datT$Q90 <- as.numeric(QT90[datT$Period])
-    datT$Q95 <- as.numeric(QT95[datT$Period])
-    datT$Q99 <- as.numeric(QT99[datT$Period])
-    datT$Q_sigma <- as.numeric(QT_sigma[datT$Period])
-    datT$Temp <- as.numeric(WTempT[datT$Period])
+    wl_Todd <- data.frame(WaterLevel = WL$Todd_WL, Jdate = WL$Jdate)
+    wt_Todd <- data.frame(Temp = WT$Todd_Temp, Jdate = WT$Jdate)
     
+    datT <- f_env(dat = datT, WL = wl_Todd, WT = wt_Todd)
+
   ##Indian
     ###Compile by-species data
     dat4 <- read.csv("data/Vdata_Indian_STJ2019-01-13.csv"); dat4$species <- "STJ"
@@ -54,37 +30,12 @@
     datI <- rbind(dat4, dat5, dat6)
     datI$Stream <- "Indian"
     
-    ###Extract date range for each capture-recapture session
-    date_range_Indian <- cbind( tapply(datI$St_Date, datI$Period, min), tapply(datI$End_Date, datI$Period, max, na.rm=T) )
-      ####Water level
-      WLIndian <- sapply(1:nrow(date_range_Indian), function(x){
-                  ##### in-funcion: extract water level data during each capture-recapture interval
-                  WL$Indian_WL[which(WL$Jdate == date_range_Indian[x,1]):which(WL$Jdate == date_range_Indian[x,2])] # in-function
-                  })
-      ####Water temperature
-      WTIndian <- sapply(1:nrow(date_range_Indian), function(x){
-                ##### in-funcion: extract water temp data during each capture-recapture interval
-                stID <- min(which(WT$Jdate == date_range_Indian[x,1]) )
-                endID <- max(which(WT$Jdate == date_range_Indian[x,2]) )
-                WT$Indian_Temp[stID:endID]
-                })
-    ###Presence/Absence of flood events (X > 90,95,99 percentiles)
-    QI <- quantile(WL$Indian_WL, c(0.9,0.95,0.99))
-    QI90 <- sapply(WLIndian, function(x)sum(x > QI[1]))
-    QI95 <- sapply(WLIndian, function(x)sum(x > QI[2]))
-    QI99 <- sapply(WLIndian, function(x)sum(x > QI[3]))
-    ###Sigma
-    QI_sigma <- sapply(WLIndian, sd)
-    ###Mean water temperature
-    WTempI <- sapply(WTIndian, mean, na.rm = T)
+    wl_Indian <- data.frame(WaterLevel = WL$Indian_WL, Jdate = WL$Jdate)
+    wt_Indian <- data.frame(Temp = WT$Indian_Temp, Jdate = WT$Jdate)
     
-    datI$Q90 <- as.numeric(QI90[datI$Period])
-    datI$Q95 <- as.numeric(QI95[datI$Period])
-    datI$Q99 <- as.numeric(QI99[datI$Period])
-    datI$Q_sigma <- as.numeric(QI_sigma[datI$Period])
-    datI$Temp <- as.numeric(WTempI[datI$Period])
+    datI <- f_env(dat = datI, WL = wl_Indian, WT = wt_Indian)
     
-  ##Integrate Todd and Indian data
+# Integrate data ----
   dat_itg <- rbind(datT, datI)
   dat_itg <- dat_itg[,-1]# removing redundunt columns
   write.csv(dat_itg, paste0("data/data_itg",Sys.Date(),".csv"))
