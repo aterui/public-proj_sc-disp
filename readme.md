@@ -1,9 +1,5 @@
----
-title: "Fish Dispersal Analaysis in South Carolina"
-author: "Terui et al."
-date: "2019-6-17"
-output: html_document
----
+# R script: Plastic dispersal responses to external and internal factors in stream fishes
+
 ### datasort_basicstats.R
 Description: descriptive statistics for marked and recaptured individuals  
 Source file: "data_itg2019-03-29.csv"  
