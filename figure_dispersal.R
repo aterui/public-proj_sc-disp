@@ -7,9 +7,10 @@
                   c("(g)", "(h)", "(i)") )
   Size <- c("Small", "Median", "Large")
   Species <- c("BHC", "CRC", "STJ")
+  xlim <- 350
   
 # Plot ----
-  pdf("figure.pdf", 6, 6)
+  pdf("figure_dispersal.pdf", 6, 6)
     par(mfrow = c(3, 3), mar = c(1,2,1,0), oma=c(5,5,2,1))
     for(i in 1:3){
       SP <- Species[i]
@@ -24,7 +25,7 @@
       Ylim <- max(unlist( sapply(1:3, function(i) ddexp(x, lambda0[i]) ) ) )
       for(j in 1:3){
         figure(lambda1 = lambda1[j], lambda0 = lambda0[j],
-               xlim = 350, ylim = Ylim,
+               xlim = xlim, ylim = Ylim,
                xlab = ifelse(i==3, T, F), ylab = ifelse(j==1, T, F))
         text(x = -150, y = Ylim, labels = paste0(Panel[i,j]," ", SP, ", ", Size[j]) )
       }

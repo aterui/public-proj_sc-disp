@@ -38,4 +38,4 @@ source("function_f_env.R")
 # Integrate data ----
   dat_itg <- rbind(datT, datI)
   dat_itg <- dat_itg[,-1]# removing redundunt columns
-  write.csv(dat_itg, paste0("data/data_itg",Sys.Date(),".csv"))
+  write.csv(dat_itg, paste0("data/data_itg",Sys.Date(),".csv") )
