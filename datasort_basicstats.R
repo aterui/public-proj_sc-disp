@@ -1,5 +1,5 @@
 # Basic statistics
-  dat_raw <- read.csv("data/data_itg2019-03-13.csv")
+  dat_raw <- read.csv("data/data_itg2019-03-29.csv")
   datT <- dat_raw[dat_raw$Stream=="Todd",]
   datI <- dat_raw[dat_raw$Stream=="Indian",]
   
