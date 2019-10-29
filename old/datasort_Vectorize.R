@@ -7,7 +7,6 @@
     #d <- read.csv("data/Todd_final.csv"); d <- d[,1:which(colnames(d)=="COMMENTS")]; stream <- "Todd"
     
   ## Re-define
-    d$LEN_COR <- as.numeric(as.character(d$LEN_COR))
     d$Year <- str_sub(d$Date, start = 1, end = 4)
     d$Month <- str_sub(d$Date, start = 5, end = 6)
     d$Day <- str_sub(d$Date, start = 7, end = 8)

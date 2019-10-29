@@ -1,6 +1,6 @@
 # Data preparation ----
   dat_raw <- read.csv("data/data_itg2019-03-29.csv")
-  dat <- dat_raw[dat_raw$species=="CRC",] # species: "STJ", "BHC", "CRC"
+  dat <- dat_raw[dat_raw$species=="STJ",] # species: "STJ", "BHC", "CRC"
   species <- unique(dat$species)
   D <- dat[is.na(dat$St_Size)==0,]
   
@@ -17,7 +17,8 @@
   ##Explanatory
     Size <- c(scale(D$St_Size) ) # standardized body size
     Stream <- as.numeric(D$Stream) - 1
-    Flow <- as.numeric(D$Q99 > 0) # presence/absence of 99 percentile disturbance
+    #Flow <- as.numeric(D$Q99 > 0); FQ <- "Q99" # presence/absence of 99 percentile disturbance
+    Flow <- as.numeric(D$Q90 > 0); FQ <- "Q90" # presence/absence of 90 percentile disturbance
     Temp <- c(scale(D$Temp) ) # standardized water temperature
   ##Control
     Interval <- D$Interval
@@ -45,6 +46,7 @@
   re <- jags2bugs(post$mcmc)
   print(re, 2)
   PP <- sapply(1:ncol(re$sims.matrix), function(x) mean(re$sims.matrix[,x]>0) )
-  write.csv(cbind(re$summary[,c(5,3,7,8,9)],PP), paste0("result/summary_", species, Sys.Date(),".csv") )
-  write.csv(re$sims.matrix, paste0("result/MCMCsample_", species, Sys.Date(),".csv") )
+  PN <- 1-PP
+  write.csv(cbind(re$summary[,c(5,3,7,8,9)], PP, PN), paste0("result/summary_", species, Sys.Date(), FQ,".csv") )
+  write.csv(re$sims.matrix, paste0("result/MCMCsample_", species, Sys.Date(), FQ,".csv") )
   
