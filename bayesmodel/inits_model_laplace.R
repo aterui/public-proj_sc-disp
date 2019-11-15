@@ -1,6 +1,6 @@
 # Data preparation ----
   dat_raw <- read.csv("data/data_itg2019-03-29.csv")
-  dat <- dat_raw[dat_raw$species=="STJ",] # species: "STJ", "BHC", "CRC"
+  dat <- dat_raw[dat_raw$species=="BHC",] # species: "STJ", "BHC", "CRC"
   species <- unique(dat$species)
   D <- dat[is.na(dat$St_Size)==0,]
   

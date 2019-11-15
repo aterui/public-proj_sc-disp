@@ -1,3 +1,6 @@
+
+rm(list = ls(all.names = TRUE))
+
 D <- read.csv("data/WaterLevel.csv")
 D$Date <- as.Date(D$Date)
 D$Month <- format(D$Date, format = "%m")

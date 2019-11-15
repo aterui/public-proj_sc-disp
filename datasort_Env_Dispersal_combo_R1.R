@@ -4,7 +4,7 @@ source("function_f_env.R")
   ##Water level
   WL <- read.csv("data/WaterLevel_edit.csv")
   ##Water temperature
-  WT <- read.csv("data/WaterTemp_data.csv"); WT <- WT[is.na(WT$Indian_Temp)==0,]
+  WT <- read.csv("data/WaterTemp.csv"); WT <- WT[is.na(WT$Indian_Temp)==0,]
   WT$Date <- as.Date(WT$Date)
   WT$Jdate <- julian.Date(WT$Date)
 

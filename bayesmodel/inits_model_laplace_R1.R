@@ -1,6 +1,6 @@
 # Data preparation ----
   dat_raw <- read.csv("data/data_itg2019-10-24.csv")
-  dat <- dat_raw[dat_raw$species=="CRC",] # species: "STJ", "BHC", "CRC"
+  dat <- dat_raw[dat_raw$species=="STJ",] # species: "STJ", "BHC", "CRC"
   species <- unique(dat$species)
   D <- dat[is.na(dat$St_Size)==0,]
   
@@ -25,14 +25,13 @@
   Interval <- D$Interval
   DL <- D$DL
   UL <- D$UL
-  IND_ID <- as.numeric(factor(D$IND_ID, levels = unique(D$IND_ID)) )
 
 #Run JAGS----
   Djags <- list( Y = Y, Mu = Mu, Yrecap = Yrecap,
                  Nsample = length(Y), DL = DL, UL = UL,
                  Size = Size, Stream = Stream, Flow = Flow, Temp = Temp,
                  log.Int = log(Interval) )
-  para <- c("b", "sigma", "mu.phi")
+  para <- c("b", "sigma", "phi", "bpvalue")
   inits <- replicate(3, list(b = c(3.5, rep(NA, 5)), .RNG.name="base::Wichmann-Hill", .RNG.seed = NA), simplify = FALSE)
   for(i in 1:3){ inits[[i]]$.RNG.seed <- i }
   
@@ -50,5 +49,5 @@
   print(re, 2)
   PP <- sapply(1:ncol(re$sims.matrix), function(x) mean(re$sims.matrix[,x]>0) )
   PN <- 1-PP
-  write.csv(cbind(re$summary[,c(5,3,7,8,9)], PP, PN), paste0("result/summary_", species, Sys.Date(), FQ,".csv") )
+  write.csv(cbind(re$summary[,c(1,5,3,7,8,9)], PP, PN), paste0("result/summary_", species, Sys.Date(), FQ,".csv") )
   write.csv(re$sims.matrix, paste0("result/MCMCsample_", species, Sys.Date(), FQ,".csv") )

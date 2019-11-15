@@ -1,10 +1,11 @@
 # Call library ----
+  rm(list = ls(all.names = TRUE))
   library(stringr)
 
 # Data ----
   ## Define data source
-  #d <- read.csv("data/Indian_final.csv"); d <- d[,1:which(colnames(d)=="COMMENTS")]; stream <- "Indian"
-  d <- read.csv("data/Todd_final.csv"); d <- d[,1:which(colnames(d)=="COMMENTS")]; stream <- "Todd"
+  d <- read.csv("data/Indian_final.csv"); d <- d[,1:which(colnames(d)=="COMMENTS")]; stream <- "Indian"
+  #d <- read.csv("data/Todd_final.csv"); d <- d[,1:which(colnames(d)=="COMMENTS")]; stream <- "Todd"
 
   ## Re-define
   d$Year <- str_sub(d$Date, start = 1, end = 4)

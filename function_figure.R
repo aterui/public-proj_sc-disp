@@ -15,6 +15,6 @@ figure <- function(lambda1, lambda0,
   
   ##With disturbance
   den1 <- ddexp(x, lambda1)
-  lines(den1 ~ x, lty = 1, lwd = 1.5)
+  lines(den1 ~ x, lty = 1, lwd = 1)
 }
 
