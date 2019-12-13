@@ -7,5 +7,5 @@
 
 ## Mean and SD
   Species <- c("BHC", "CRC", "STJ")
-  mu <- sapply(Species, function(x) mean(dat[dat$Species == x & dat$Y==1, "Size1"]) )
-  SD <- sapply(Species, function(x) sd(dat[dat$Species == x & dat$Y==1, "Size1"]) )
+  mu <- sapply(Species, function(x) mean(dat[dat$Species == x, "Size1"]) )
+  SD <- sapply(Species, function(x) sd(dat[dat$Species == x, "Size1"]) )

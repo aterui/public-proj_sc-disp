@@ -1,57 +1,56 @@
-# R script: Plastic dispersal responses to external and internal factors in stream fishes
+# R script: Heterogeneous dispersal responses to external and internal factors in stream fishes
 
-### datasort_basicstats.R
-Description: descriptive statistics for marked and recaptured individuals  
-Source file: "data_itg2019-03-29.csv"  
+### analaysis_meanbodysize_ver2
+Description: calculate mean body size
+Source file: "VectorData_MERGE2019-11-19.csv"  
 Output file: NA  
 
-### datasort_Vectorize.R
-Description: vectorize data  
-Source file: "Todd_final.csv" or "Indian_final.csv"  
-Output file: "Vdata_streamID_speciesIDDATE.csv"  
+### analysis_dispersal_distance_ver2
+Description: mean dispersal distance 
+Source file: "summary_8000", SP, "2019-11-20Q99.csv"
+Output file: NA
 
-### datasort_environment.R
-Description: edit water level data  
-Source file: "WaterLevel.csv"  
-Output file: "WaterLevel_edit.csv"  
+### analysis_dispersal_length_ratio_ver2
+Description: calculate dispersal and section length ratio
+Source file: "summary_8000", SP, "2019-11-20Q99.csv"
+Output file: NA
 
-### datasort_Env_Dispersal_combo.R
-Description: combine environment and dispersal data  
-Source file: "Vdata_streamID_speciesIDDATE.csv", "WaterLevel_edit.csv", "WaterTemp_data.csv"  
-Output file: "data_itgDATE.csv"  
+### datasort_basicstats_ver2
+Description: number of fish individuals recaptured, marked etc.
+Source file:  "VectorData_MERGE2019-11-19.csv"
+Output file: NA
 
-### inits_model_laplace.R
-Description: R script for running a JAGS model  
-Source file: "data_itgDATE.csv"  
-Output file: NA  
+### datasort_environment_ver2
+Description: sort environmental data (temperature and water level)
+Source file: "WaterTemp.csv"; "WaterLevel_edit.csv"; "Indian_final.csv"; "Todd_final.csv"
+Output file: "Env_QF99_", Sys.Date(), ".csv"; "Env_Q50_", Sys.Date(), ".csv"; "Env_Temp_mu_", Sys.Date(), ".csv"
 
-### model_laplace.R
-Description: JAGS script for a laplace model  
-Source file: NA  
-Output file: NA  
-Note: calling from "inits_model_laplace.R"  
+### datasort_mergeVectorData_ver2
+Description: Merge vectorized fish data
+Source file: sapply(1:3, function(x)paste0("data/VectorData_", Species[x], "2019-11-19.csv"))
+Output file: "VectorData_MERGE", Sys.Date(), ".csv"
 
-### figure_raw_dispersal.R
-Description: script for figures S1-S3  
-Source file: "data_itg2019-03-29.csv"  
-Output file: "figure_raw_dispersal.pdf"  
+### datasort_Vectorize_ver2
+Description: Vectorize original data
+Source file: "Indian_final.csv"; "Todd_final.csv"
+Output file: "VectorData_", species, Sys.Date(), ".csv"
 
-### figure_dispersal.R
-Description: script for figure 2  
-Source file: "summary_speciesID_2019-04-05Q99.csv.csv"  
-Output file: "figure_dispersal.pdf"  
+### figure_dispersal_Indian_ver2
+Description: Draw a figure for dispersal kernels
+Source file: "VectorData_MERGE2019-11-19.csv"; "result/summary_8000", SP, "2019-11-20Q99.csv"
+Output file: "figure_dispersal_Indian_ver2.pdf"
 
-### figure_raw_dispersal.R
-Description: script for figures S1-S3  
-Source file: "data_itg2019-03-29.csv"  
-Output file: "figure_raw_dispersal.pdf"  
+### figure_dispersal_Todd_ver2
+Description: Draw a figure for dispersal kernels
+Source file: "VectorData_MERGE2019-11-19.csv"; "result/summary_8000", SP, "2019-11-20Q99.csv"
+Output file: "figure_dispersal_Todd_ver2.pdf"
 
-### analaysis_meanbodysize.R
-Description: script for mean body size  
-Source file: "data_itg2019-03-29.csv"  
-Output file: NA  
+### figure_raw_dispersal_ver2
+Description: Draw a figure for dispersal histogram
+Source file: "VectorData_MERGE2019-11-19.csv"; "result/summary_8000", SP, "2019-11-20Q99.csv"
+Output file: "figure_raw_dispersal_ver2.pdf"
 
-### analaysis_mean_dispersal_distance.R
-Description: script for mean dispersal distance relative to the length of study section  
-Source file: "summary_speciesID_2019-04-05Q99.csv.csv"  
-Output file: NA  
+### function_figure.R
+Description: function for drawing a figure
+Source file: NA
+Output file: NA

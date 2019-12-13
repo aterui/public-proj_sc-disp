@@ -23,7 +23,7 @@
     dat$Q99 <- ifelse(dat$QF99 > 0, 1, 0)
   
 # Plot ----
-  pdf("figure_raw_dispersal.pdf", width = 13, height = 12)
+  pdf("figure_raw_dispersal_ver2.pdf", width = 13, height = 12)
   for(i in 1:length(SP) ){
       par(mfrow = c(4, 4), oma = c(3,3,2,1) )
       dd <- dat[dat$Species==SP[i],]

@@ -1,7 +1,7 @@
 
 # Data preparation ----
   rm(list = ls(all.names = TRUE))
-  species <- "BHC" #BHC, CRC, STJ
+  species <- "CRC" #BHC, CRC, STJ
 
   ## Fish data
   dat_raw <- read.csv("data/VectorData_MERGE2019-11-19.csv")
@@ -28,10 +28,10 @@
   X <- dat$X2*20 - 10
   Mu <- dat$X1*20 - 10
   
-  ##Explanatory
+  ##Explanatory (standardized for mean 0 and sd 0.5)
   scl.Size <- (dat$Size1-mean(dat$Size1))/(2*sd(dat$Size1))
-  #Flow <- apply(QF99[,c("QF99_Indian", "QF99_Todd")], 2, function(x)ifelse(x > 0, 1, 0) ); FQ <- "Q99"
-  Flow <- as.matrix(Q50[,c("Q50_Indian", "Q50_Todd")] ); FQ <- "Q50"; Flow <- (Flow - mean(Flow))/(2*sd(Flow))
+  Flow <- apply(QF99[,c("QF99_Indian", "QF99_Todd")], 2, function(x)ifelse(x > 0, 1, 0) ); FQ <- "Q99"
+  #Flow <- as.matrix(Q50[,c("Q50_Indian", "Q50_Todd")] ); FQ <- "Q50"; Flow <- (Flow - mean(Flow))/(2*sd(Flow))
   Temp <- as.matrix(Temp_raw[,c("Temp_mu_Indian", "Temp_mu_Todd")])
   scl.Temp <- (Temp - mean(Temp))/(sd(Temp)*2)
   Stream <- ifelse(dat$Stream == "Indian", 0, 1)
@@ -82,7 +82,7 @@
   WAIC <- waic(loglik)
   
 # Save output  
-  write.csv(cbind(re$summary[,c(1,5,3,7,8,9)], PP, PN), paste0("result/summary_", n.iter, species, Sys.Date(), FQ,".csv") )
-  write.csv(re$sims.matrix, paste0("result/MCMCsample_", n.iter, species, Sys.Date(), FQ,".csv") )
-  write.csv(WAIC$estimates, paste0("result/WAIC_", n.iter, species, Sys.Date(), FQ,".csv") )
+  #write.csv(cbind(re$summary[,c(1,5,3,7,8,9)], PP, PN), paste0("result/summary_", n.iter, species, Sys.Date(), FQ,".csv") )
+  #write.csv(re$sims.matrix, paste0("result/MCMCsample_", n.iter, species, Sys.Date(), FQ,".csv") )
+  #write.csv(WAIC$estimates, paste0("result/WAIC_", n.iter, species, Sys.Date(), FQ,".csv") )
   
