@@ -45,8 +45,8 @@
   
   ## Median flow
   ### Median water level
-  Q50_Indian <- unlist(lapply(FLOW_I, median) )
-  Q50_Todd <- unlist(lapply(FLOW_T, median) )
+  Q50_Indian <- unlist(lapply(FLOW_I, function(x) mean(x-mean(unlist(FLOW_I))) ) )
+  Q50_Todd <- unlist(lapply(FLOW_T, function(x) mean(x-mean(unlist(FLOW_T))) ) )
   Q50 <- cbind(Q50_Indian, Q50_Todd)
   ### Save data
   #write.csv(Q50, paste0("data/Env_Q50_", Sys.Date(), ".csv"))

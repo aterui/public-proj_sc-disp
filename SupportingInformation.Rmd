@@ -1,0 +1,207 @@
+---
+title: "Supporting Information"
+author: "Akira Terui, Seoghyun Kim, Kasey C. Pregler, Yoichiro Kanno"
+output:
+  html_document:
+    template: default
+---
+### Overview
+This HTML file is supporting information for "Non-random dispersal in sympatric stream fishes: influences of natural disturbance and body size". This includes:
+
+* Tables S1 to S4
+* Figures S1 to S3
+
+### Tables and Figures {.tabset}
+#### Table S1
+```{r include = F, warning = F}
+# Basic statistics
+  # Library ----
+  rm(list = ls(all.names = TRUE))
+  library(stringr)
+  library(knitr)
+
+  # Function ----
+  fmr <- function(dat){
+    Mark_u <- tapply(dat$IND_ID, dat$Species, function(x) length(unique(x) ) )
+    Recap_u <- tapply(dat$IND_ID[dat$Y==1], dat$Species[dat$Y==1],
+                      function(x) length(unique(x) ) )
+    Mark_repl <- tapply(dat$IND_ID, dat$Species, function(x) length(x) )
+    Recap_repl <- tapply(dat$IND_ID[dat$Y==1], dat$Species[dat$Y==1],
+                         function(x) length(x) )
+    return(list(Mark_u = Mark_u, Recap_u = Recap_u,
+                Mark_repl = Mark_repl, Recap_repl = Recap_repl) )
+  }
+  
+  # Data ----
+  # Fish data
+  dat <- read.csv("data/VectorData_MERGE2019-11-19.csv")
+  
+  dat1 <- fmr(dat[dat$Stream=="Indian",])
+  dat2 <- fmr(dat[dat$Stream=="Todd",])
+  
+  M1 <- data.frame(dat1$Mark_u, dat1$Recap_u, dat1$Mark_repl, dat1$Recap_repl)
+  M2 <- data.frame(dat2$Mark_u, dat2$Recap_u, dat2$Mark_repl, dat2$Recap_repl)
+  colnames(M2) <- colnames(M1) <- c("Individuals captured (unique)", "Individuals recaptured (unique)",
+                                    "Individuals captured (total replicate)", "Individuals recaptured (total replicate)")
+  
+```
+
+**Table S1** Descriptive statistics for our mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ) in Indian Creek. “Unique” individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. “Total replicate” is the total number of individuals captured or recaptured including repeated counts of the same individuals.
+
+```{r echo = F, warning = F}
+kable(M1)
+```
+
+#### Table S2
+**Table S2** Descriptive statistics for our mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ) in Indian Creek. See Table S1 for details.
+```{r echo = F, warning = F}
+kable(M2)
+```
+
+#### Table S3
+**Table S3** Comparison of Widely Applicable Information Criterion (WAIC) between models that use high flows (the occurrence of flow events exceeding the 99th percentile of daily water levels) and median water levels as a metric of stream flow conditions. Species name abbreviations - **BHC**: bluehead chub, **CRC**: creek chub, **STJ**, striped jumprock
+```{r echo = F}
+M3 <- read.csv("result/WAIC_summary.csv")
+colnames(M3) <- c("Species", "WAIC for the high flow model", "WAIC for the median flow model")
+kable(M3)
+```
+
+#### Table S4
+**Table S4** Parameter estimates from the Bayesian dispersal model that uses median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Posterior probability indicates the proportion of MCMC samples assigned to be either negative or positive (1500 MCMC samples were used to calculate posterior probabilities). Species name abbreviations - **BHC**: bluehead chub, **CRC**: creek chub, **STJ**, striped jumprock
+```{r echo = F}
+M4 <- read.csv("result/Est_MedFlowModel.csv")
+M4$Effect <- as.character(M4$Effect)
+colnames(M4) <- c("Species", "Effect", "Estimate", "Lower 95% CI", "Upper 95% CI")
+M4[,3:5] <- round(M4[,3:5], 2)
+M4[which(M4$Effect == "mu.phi"), "Effect"] <- "$\\mu_{\\phi}$"
+M4[which(M4$Effect == "sigma.phi"), "Effect"] <- "$\\sigma_{\\phi}$"
+kable(M4)
+```
+
+#### Figure S1
+```{r echo = F}
+# Data for figure S1-3
+# Library ----
+  rm(list = ls(all.names = TRUE))
+  library(stringr)
+
+# Data ----
+  # Fish data
+    dat <- read.csv("data/VectorData_MERGE2019-11-19.csv")
+    dat$St_Month <- as.numeric(format(as.Date(dat$Date1), format = "%m") )
+    dat$St_Year <- format(as.Date(dat$Date1), format = "%Y")
+    dat$End_Month <- as.numeric(format(as.Date(dat$Date2), format = "%m") )
+    dat$End_Year <- format(as.Date(dat$Date2), format = "%Y")
+    
+    ## Movement distance
+    dat$X_m <- (dat$X2-dat$X1)*20 
+    SP <- sort(unique(dat$Species) )
+  
+  # Env data
+    QF99 <- read.csv("data/Env_QF99_2019-11-19.csv")
+    Q99 <- cbind(QF99$QF99_Indian, QF99$QF99_Todd)
+    Str <- ifelse(dat$Stream=="Indian", 1, 2)
+    dat$QF99 <- Q99[cbind(dat$Occasion1, Str)]
+    dat$Q99 <- ifelse(dat$QF99 > 0, 1, 0)
+```
+
+```{r echo = F}
+# Plot ----
+  for(i in 1){# select BHC
+      par(mfrow = c(4, 4), mar = c(3,3,2,1), oma = c(1,2,0,0) )
+      dd <- dat[dat$Species==SP[i],]
+      sapply(1:length(unique(dd$Occasion1) ), function(x){
+             ##plot
+               plot(table(dd$X_m[dd$Occasion1 == x]),
+                    axes = F, ann = F, col = ifelse(unique(dd$Q99[dd$Occasion1 == x]) >= 1, "red", "black"),
+                    xlim = c(-max(abs(dd$X_m), na.rm = T),
+                             max(abs(dd$X_m), na.rm = T) ) )
+               legend("topright", bty = "n",
+                      legend = substitute("N = "*v1, list(v1 = sum(dd$Y[dd$Occasion1 == x]) ) ) )
+             ##panel label
+               St_Month <- sort(unique(dd[dd$Occasion1 == x, "St_Month"]) )
+               St_Year <- unique(dd[dd$Occasion1 == x, "St_Year"])
+               End_Month <- sort(na.omit(unique(dd[dd$Occasion1 == x, "End_Month"]) ) )
+               End_Year <- na.omit(unique(dd[dd$Occasion1 == x, "End_Year"]) )
+               lab <- paste0(str_sub(month.name[St_Month[1]], 1, 3), "-", St_Year,
+                            " to ",
+                            str_sub(month.name[End_Month[1]], 1, 3), "-", End_Year)
+               mtext(lab, 3, line = 0.5, cex = 0.8)
+             ##axis
+               sapply(1:2, function(z) axis(z, las = z) )
+             })
+      mtext("Dispersal distance (m)", 1, outer = T)
+      mtext("Frequency", 2, outer = T)
+  }
+
+```
+
+**Figure S1** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels. Values shown on the top right of each panel (N) denote the number of recaptured individuals.
+
+#### Figure S2
+```{r echo = F}
+# Plot ----
+  for(i in 2){# select CRC
+      par(mfrow = c(4, 4), mar = c(3,3,2,1), oma = c(1,2,0,0) )
+      dd <- dat[dat$Species==SP[i],]
+      sapply(1:length(unique(dd$Occasion1) ), function(x){
+             ##plot
+               plot(table(dd$X_m[dd$Occasion1 == x]),
+                    axes = F, ann = F, col = ifelse(unique(dd$Q99[dd$Occasion1 == x]) >= 1, "red", "black"),
+                    xlim = c(-max(abs(dd$X_m), na.rm = T),
+                             max(abs(dd$X_m), na.rm = T) ) )
+               legend("topright", bty = "n",
+                      legend = substitute("N = "*v1, list(v1 = sum(dd$Y[dd$Occasion1 == x]) ) ) )
+             ##panel label
+               St_Month <- sort(unique(dd[dd$Occasion1 == x, "St_Month"]) )
+               St_Year <- unique(dd[dd$Occasion1 == x, "St_Year"])
+               End_Month <- sort(na.omit(unique(dd[dd$Occasion1 == x, "End_Month"]) ) )
+               End_Year <- na.omit(unique(dd[dd$Occasion1 == x, "End_Year"]) )
+               lab <- paste0(str_sub(month.name[St_Month[1]], 1, 3), "-", St_Year,
+                            " to ",
+                            str_sub(month.name[End_Month[1]], 1, 3), "-", End_Year)
+               mtext(lab, 3, line = 0.5, cex = 0.8)
+             ##axis
+               sapply(1:2, function(z) axis(z, las = z) )
+             })
+      mtext("Dispersal distance (m)", 1, outer = T)
+      mtext("Frequency", 2, outer = T)
+  }
+
+```
+
+**Figure S2** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+
+#### Figure S3
+```{r echo = F}
+# Plot ----
+  for(i in 3){# select STJ
+      par(mfrow = c(4, 4), mar = c(3,3,2,1), oma = c(1,2,0,0) )
+      dd <- dat[dat$Species==SP[i],]
+      sapply(1:length(unique(dd$Occasion1) ), function(x){
+             ##plot
+               plot(table(dd$X_m[dd$Occasion1 == x]),
+                    axes = F, ann = F, col = ifelse(unique(dd$Q99[dd$Occasion1 == x]) >= 1, "red", "black"),
+                    xlim = c(-max(abs(dd$X_m), na.rm = T),
+                             max(abs(dd$X_m), na.rm = T) ) )
+               legend("topright", bty = "n",
+                      legend = substitute("N = "*v1, list(v1 = sum(dd$Y[dd$Occasion1 == x]) ) ) )
+             ##panel label
+               St_Month <- sort(unique(dd[dd$Occasion1 == x, "St_Month"]) )
+               St_Year <- unique(dd[dd$Occasion1 == x, "St_Year"])
+               End_Month <- sort(na.omit(unique(dd[dd$Occasion1 == x, "End_Month"]) ) )
+               End_Year <- na.omit(unique(dd[dd$Occasion1 == x, "End_Year"]) )
+               lab <- paste0(str_sub(month.name[St_Month[1]], 1, 3), "-", St_Year,
+                            " to ",
+                            str_sub(month.name[End_Month[1]], 1, 3), "-", End_Year)
+               mtext(lab, 3, line = 0.5, cex = 0.8)
+             ##axis
+               sapply(1:2, function(z) axis(z, las = z) )
+             })
+      mtext("Dispersal distance (m)", 1, outer = T)
+      mtext("Frequency", 2, outer = T)
+  }
+
+```
+
+**Figure S3** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
