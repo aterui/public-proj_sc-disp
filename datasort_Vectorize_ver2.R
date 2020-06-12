@@ -59,6 +59,8 @@
 # Recap data ---- 
   source("function_getY_binary.R")  
   MY <- getY_binary(Msec)
+  ## Col1: individual ID, Col2: occassion ID
+  ## X1 release, X2 recapture occassion
   X1ID <- X2ID <- which(is.na(MY)==0, arr.ind = T)
   X1ID[,2] <- X2ID[,2] - 1
   
@@ -92,6 +94,6 @@
   out$TAG_ID <- indID[X1ID[,1]]
   
   file <- paste0("data/VectorData_", species, Sys.Date(), ".csv")
-  write.csv(out, file)
+  #write.csv(out, file)
   
   
