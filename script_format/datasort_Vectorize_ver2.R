@@ -25,7 +25,7 @@
   ## remove individuals with no body size data
   dat <- dat[-which(is.na(dat$LEN_COR)),]
   
-  ## remove inidividuals capture only at the last occasion 
+  ## remove individuals capture only at the last occasion 
   ID_last <- unique(dat$TAGID[dat$Occasion==max(dat$Occasion)])
   ID_single <- names(which(table(dat$TAGID)==1) )
   ID_rm <- intersect(ID_last, ID_single)

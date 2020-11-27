@@ -63,7 +63,7 @@ kable(M1, format = "markdown")
 \pagebreak
 
 ### Table S2
-**Table S2** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ) in Indian Creek. See Table S1 for details.
+**Table S2** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ) in Todd Creek. See Table S1 for details.
 ```{r echo = F, warning = F}
 kable(M2, format = "markdown")
 ```
