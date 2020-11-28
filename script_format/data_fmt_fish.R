@@ -67,7 +67,6 @@
                 values_fn = n_distinct) %>% 
     filter(length_n > 1 | weight_n > 1 | section_n > 1 | julian_n > 1) 
     
-  ## combine single and duplicate
   dat_n2 <- dat %>% 
     filter(tag_id %in% tag_dup$tag_id) %>% 
     arrange(species, tag_id, stream) %>% 
@@ -75,6 +74,7 @@
     slice(which.max(as_date)) %>% 
     ungroup()
   
+  ## combine single and duplicate
   dat_clean <- dat %>% 
     mutate(id_single = paste0(tag_id, occasion, sep = "_")) %>% 
     filter(id_single %in% tag_single$id_single) %>%
@@ -99,10 +99,15 @@
     mutate(occasion = occasion_2 - 1)
 
 # output ------------------------------------------------------------------
-
-  dat_final <- dat1st %>% 
-    left_join(dat2nd, by = c("tag_id", "species", "occasion", "stream"))
   
-  write.csv(dat_final, "data_fmt/vector_data.csv")
+  ## merge 1st (capture) and 2nd data (recapture)
+  ## remove data with questionable length data
+  dat_merge <- dat1st %>% 
+    left_join(dat2nd, by = c("tag_id", "species", "occasion", "stream")) %>% 
+    mutate(diff_length = length_2 - length_1) %>%
+    mutate(diff_length = ifelse(is.na(diff_length), 0, diff_length)) %>% 
+    filter(diff_length > -6)    
+  
+  write.csv(dat_merge, "data_fmt/vector_data.csv")
   
   
