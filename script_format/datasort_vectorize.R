@@ -6,11 +6,11 @@
 
 # read data ---------------------------------------------------------------
 
-  d1 <- read_csv("data_org/Indian_final.csv") %>% 
+  d1 <- read_csv("data_org/indian_final.csv") %>% 
     select(-COMMENTS) %>% 
     mutate(Stream = "Indian")
   
-  d2 <- read_csv("data_org/Todd_final.csv") %>% 
+  d2 <- read_csv("data_org/todd_final.csv") %>% 
     select(-COMMENTS) %>% 
     mutate(Stream = "Todd")
   
