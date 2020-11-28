@@ -1,87 +1,111 @@
-# Call library ----
-  rm(list = ls(all.names = TRUE))
-  library(stringr)
 
-# Data ----
-  ## Define data source
-  d1 <- read.csv("data/Indian_final.csv"); d1 <- d1[,1:which(colnames(d1)=="COMMENTS")]; d1$Stream <- "Indian"
-  d2 <- read.csv("data/Todd_final.csv"); d2 <- d2[,1:which(colnames(d2)=="COMMENTS")]; d2$Stream <- "Todd"
-  dat <- rbind(d1, d2)
+# library -----------------------------------------------------------------
+
+  rm(list = ls(all.names = TRUE))
+  library(tidyverse)
+
+# read data ---------------------------------------------------------------
+
+  d1 <- read_csv("data_org/indian_final.csv") %>% 
+    select(-COMMENTS) %>% 
+    mutate(Stream = "Indian")
   
-  ## Re-define
-  dat$Year <- str_sub(dat$Date, start = 1, end = 4)
-  dat$Month <- str_sub(dat$Date, start = 5, end = 6)
-  dat$Day <- str_sub(dat$Date, start = 7, end = 8)
-  dat$as.date <- as.Date(paste(dat$Year,dat$Month,dat$Day, sep="/"))
-  dat$Julian <- julian(dat$as.date)
+  d2 <- read_csv("data_org/todd_final.csv") %>% 
+    select(-COMMENTS) %>% 
+    mutate(Stream = "Todd")
   
-# Data sort ----
-  ## remove 1-2 occasions; these are trial period so inappropriate for analysis
-  dat$Occasion <- dat$Occasion - 2
-  dat <- dat[dat$Occasion > 0,]
+  dat <- bind_rows(d1, d2) %>% 
+    mutate(tag_id = str_remove_all(TAGID, pattern = "\\s")) %>% 
+    mutate(Year = str_sub(Date, start = 1, end = 4),
+           Month = str_sub(Date, start = 5, end = 6),
+           Day = str_sub(Date, start = 7, end = 8),
+           as_date = as.Date(paste(Year, Month, Day, sep="/")),
+           ind_last = ifelse(tag_id %in% .$tag_id[Occasion == max(Occasion)], 1, 0),
+           ind_single = ifelse(tag_id %in% names(which(table(tag_id)==1)), 1, 0),
+           ind_remove = ind_single + ind_last,
+           julian = julian(as_date)) %>% 
+    filter(VALID == "Y" & Occasion > 2 & !(is.na(LEN_COR)) & !(is.na(tag_id))) %>% 
+    filter(ind_remove < 2 & SPE_COR %in% c("STJ", "BHC", "CRC")) %>% 
+    select(tag_id,
+           species = SPE_COR,
+           as_date,
+           julian,
+           section = SEC,
+           length = LEN_COR,
+           weight = WEIGH_COR,
+           occasion = Occasion,
+           stream = Stream) %>% 
+    mutate(occasion = occasion - 2)
   
-  datI <- dat[dat$Stream=="Indian",]
-  datT <- dat[dat$Stream=="Todd",]
-  stIndian <- tapply(datI$Julian, datI$Occasion, min)
-  stTodd <- tapply(datT$Julian, datT$Occasion, min)
+# sampling date range within and among occasions --------------------------
+
+  ## capture session
+  d1 <- dat %>% 
+    mutate(occasion_1 = occasion) %>% 
+    group_by(occasion_1, stream) %>% 
+    summarize(st_date = min(as_date),
+              end_date = max(as_date))
   
-  ## row: occasion, column: start and end date for each occasion
-  IntIndian <- cbind(stIndian[1:(length(stIndian)-1)], stIndian[2:length(stIndian)])
-  IntTodd <- cbind(stTodd[1:(length(stTodd)-1)], stTodd[2:length(stTodd)])
-  Jrange <- range(dat$Julian, na.rm = T)
+  ## recapture session
+  d2 <- dat %>% 
+    mutate(occasion_2 = occasion - 1) %>% 
+    group_by(occasion_2, stream) %>% 
+    summarize(st_date = min(as_date),
+              end_date = max(as_date))
+
+  dat_drange <- left_join(d1, d2, by = c("occasion_1" = "occasion_2", "stream")) %>% 
+    filter(occasion_1 < 14) %>% 
+    group_by(occasion_1, stream) %>% 
+    summarise(date = seq(st_date.x, st_date.y, by = 1)) %>% 
+    rename(occasion = occasion_1)
+    
+# water level -------------------------------------------------------------
   
-# Flood frequency ----
-  ## Read data
-  WL <- read.csv("data/WaterLevel_edit.csv")
-  WL <- WL[WL$Jdate >= Jrange[1]&WL$Jdate <= Jrange[2],]
+  ## combined with occasion data
+  dat_wl <- read_csv("data_org/water_level.csv") %>% 
+    mutate(as_date = as.Date(Date, format = "%m/%d/%Y")) %>% 
+    rename(Todd = Todd_WL,
+           Indian = Indian_WL) %>% 
+    pivot_longer(cols = c(Todd, Indian), names_to = "stream", values_to = "level") %>% 
+    left_join(dat_drange, by = c("as_date" = "date", "stream"))
   
-  ## List
-  FLOW_I <- FLOW_T <- list(NULL)
-  for(t in 1:nrow(IntIndian)){
-    ## Get water level data for each occasion t
-    FLOW_I[[t]] <- WL$Indian_WL[which(WL$Jdate >= IntIndian[t,1] & WL$Jdate <= IntIndian[t,2])]
-    FLOW_T[[t]] <- WL$Todd_WL[which(WL$Jdate >= IntTodd[t,1] & WL$Jdate <= IntTodd[t,2])]
-  }
+  ## standardize by subtracting minimum water level for each stream
+  dat_wl <- dat_wl %>% 
+    group_by(stream) %>% 
+    summarize(level = level - min(level),
+              as_date,
+              date = Date,
+              occasion)
   
-  ## Median flow
-  ### Median water level
-  Q50_Indian <- unlist(lapply(FLOW_I, median) )
-  Q50_Todd <- unlist(lapply(FLOW_T, median) )
-  Q50 <- cbind(Q50_Indian, Q50_Todd)
-  ### Save data
-  #write.csv(Q50, paste0("data/Env_Q50_", Sys.Date(), ".csv"))
+  ## summary statistics
+  dat_wl_summary <- dat_wl %>% 
+    group_by(stream) %>% 
+    mutate(q99 = quantile(level, probs = 0.99)) %>% 
+    ungroup() %>% 
+    group_by(occasion, stream) %>% 
+    summarize(q50 = median(level),
+              q99_event = ifelse(any(level > q99), 1, 0)) %>% 
+    drop_na(occasion)
   
-  ## Quntile 99 and its frequency
-  ### 99% water level Indian
-  Q99I <- quantile(WL$Indian_WL, c(0.99)) 
-  Q99T <- quantile(WL$Todd_WL, c(0.99))
-  ### Count days exceeding 99% water level
-  QF99_Indian <- unlist(lapply(FLOW_I, function(x) sum(x >= Q99I)) )
-  QF99_Todd <- unlist(lapply(FLOW_T, function(x) sum(x >= Q99T)) )
-  QF99 <- cbind(QF99_Indian, QF99_Todd)
-  ### Save data
-  #write.csv(QF99, paste0("data/Env_QF99_", Sys.Date(), ".csv"))
+  write_csv(dat_wl_summary, "data_fmt/flow_summary.csv")
+
+# water temperature -------------------------------------------------------
+
+  ## combined with occasion data
+  dat_temp <- read_csv("data_org/water_temperature.csv") %>% 
+    mutate(as_date = as.Date(Date)) %>% 
+    rename(Todd = Todd_Temp,
+           Indian = Indian_Temp) %>% 
+    pivot_longer(cols = c(Todd, Indian), names_to = "stream", values_to = "temperature") %>% 
+    left_join(dat_drange, by = c("as_date" = "date", "stream")) %>% 
+    drop_na(temperature)
   
-# Water temperature ----
-  ## Read data
-  WT <- read.csv("data/WaterTemp.csv"); WT <- WT[is.na(WT$Indian_Temp)==0,]
-  WT$Date <- as.Date(WT$Date)
-  WT$Jdate <- julian.Date(WT$Date)
-  WT <- WT[WT$Jdate >= Jrange[1]&WT$Jdate <= Jrange[2],]
+  ## summary statistics
+  dat_temp_summary <- dat_temp %>% 
+    group_by(occasion, stream) %>% 
+    summarize(mu_temp = mean(temperature)) %>% 
+    drop_na(occasion)
   
-  ## List
-  Temp_I <- Temp_T <- list(NULL)
-  for(t in 1:nrow(IntIndian)){
-    ### Get temperature data for each occasion t
-    Temp_I[[t]] <- WT$Indian_Temp[which(WT$Jdate >= IntIndian[t,1] & WT$Jdate <= IntIndian[t,2])]
-    Temp_T[[t]] <- WT$Todd_Temp[which(WT$Jdate >= IntTodd[t,1] & WT$Jdate <= IntTodd[t,2])]
-  }
+  write_csv(dat_wl_summary, "data_fmt/temp_summary.csv")
   
-  ## Mean temperature matrix 
-  ### Mean temperature for each stream
-  Temp_mu_Indian <- unlist(lapply(Temp_I, mean) )
-  Temp_mu_Todd <- unlist(lapply(Temp_T, mean) )
-  Temp_mu <- cbind(Temp_mu_Indian, Temp_mu_Todd)
-  ### Save data
-  #write.csv(Temp_mu, paste0("data/Env_Temp_mu_", Sys.Date(), ".csv") )
   
