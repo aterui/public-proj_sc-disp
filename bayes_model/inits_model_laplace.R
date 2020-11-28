@@ -1,70 +1,65 @@
 
-# Data preparation ----
+# library -----------------------------------------------------------------
+
   rm(list = ls(all.names = TRUE))
-  species <- "CRC" #BHC, CRC, STJ
+  pacman::p_load(tidyverse, runjags)
 
-  ## Fish data
-  dat_raw <- read.csv("data/VectorData_MERGE2019-11-19.csv")
-  dat <- dat_raw[dat_raw$Species == species,]
-
-  ## Environmental data
-  QF99 <- read.csv("data/Env_QF99_2019-11-19.csv")
-  Q50 <- read.csv("data/Env_Q50_2019-11-19.csv")
-  Temp_raw <- read.csv("data/Env_Temp_mu_2019-11-19.csv")
+# read data ---------------------------------------------------------------
   
-  ## unique individual
-  length(unique(dat$IND_ID))
+  dat_raw <- read_csv("data_fmt/vector_data.csv")
+  flow <- read.csv("data_fmt/flow_summary.csv")
+  temp <- read.csv("data_fmt/temp_summary.csv")
+  
+  n_distinct(dat_raw$tag_id)
+  
+# data prep ---------------------------------------------------------------
+  
+  # data with questionable length are removed ('growth' with less than -5 mm)
+  dat <- dat_raw %>% 
+    mutate(Y = 1 - is.na(section_2),
+           X = section_2,
+           Mu = section_1,
+           stream_dummy = ifelse(stream == "Indian", 0, 1)) %>% 
+    mutate(diff_length = length_2 - length_1) %>%
+    mutate(diff_length = ifelse(is.na(diff_length), 0, diff_length)) %>% 
+    filter(diff_length > -6)    
+  
+  dat <- dat %>% 
+    left_join(flow, by = c("stream", "occasion")) %>% 
+    left_join(temp, by = c("stream", "occasion")) %>% 
+    mutate(scl_length = c(scale(length_1)),
+           scl_temp = c(scale(mu_temp)),
+           scl_q50 = c(scale(q50)),
+           interval = julian_2 - julian_1,
+           upper_limit = ifelse(stream == "Indian", 740, 520))
+  
+# MCMC setup --------------------------------------------------------------
 
-# MCMC ----
   n.ad <- 100
-  n.iter <- 8E+3
+  n.iter <- 1E+3
   n.thin <- max(3, ceiling(n.iter/500))
   burn <- ceiling(max(10, n.iter/2))
   Sample <- ceiling(n.iter/n.thin)
-
-# Data for JAGS ----
-  ##Response
-  Y <- dat$Y
-  X <- dat$X2*20 - 10
-  Mu <- dat$X1*20 - 10
   
-  ##Explanatory (standardized for mean 0 and sd 0.5)
-  scl.Size <- (dat$Size1-mean(dat$Size1))/(2*sd(dat$Size1))
-  Flow <- apply(QF99[,c("QF99_Indian", "QF99_Todd")], 2, function(x)ifelse(x > 0, 1, 0) ); FQ <- "Q99"
-  #Flow <- as.matrix(Q50[,c("Q50_Indian", "Q50_Todd")] ); FQ <- "Q50"; Flow <- (Flow - mean(Flow))/(2*sd(Flow))
-  Temp <- as.matrix(Temp_raw[,c("Temp_mu_Indian", "Temp_mu_Todd")])
-  scl.Temp <- (Temp - mean(Temp))/(sd(Temp)*2)
-  Stream <- ifelse(dat$Stream == "Indian", 0, 1)
+# data for JAGS -----------------------------------------------------------
   
-  ##Control
-  Interval <- dat$JD2 - dat$JD1
-  UL <- ifelse(dat$Stream == "Indian", 740, 520)
-  
-  ##Index
-  Occ <- dat$Occasion1
-  Str <- ifelse(dat$Stream == "Indian", 1, 2)
-  XID <- which(is.na(X)==0)
-  
-  ##Sample size
-  Nsample <- length(Y)
-  Nt <- length(unique(Occ))
-
-#Run JAGS----
-  Djags <- list( Y = Y, X = X, Mu = Mu,
-                 Nsample = Nsample, Nt = Nt,
-                 UL = UL, scl.Size = scl.Size, Stream = Stream,
-                 Flow = Flow, scl.Temp = scl.Temp,
-                 log.Int = log(Interval),
-                 Str = Str, Occ = Occ, XID = XID )
+  ## select species
+  dat <- filter(dat, species == "CRC")
+    
+  data_jags <- list(Y = dat$Y, X = dat$X, Mu = dat$Mu,
+                    Nsample = nrow(dat), Nt = n_distinct(dat$occasion),
+                    UL = dat$upper_limit, scl.Size = dat$scl_length, Stream = dat$stream_dummy,
+                    Flow = dat$q99_event, scl.Temp = dat$scl_temp,
+                    log.Int = log(dat$interval),
+                    Occ = dat$occasion, XID = which(!(is.na(dat$X))))
   
   para <- c("b", "sigma", "mu.phi", "sigma.phi", "mu", "sigma", "loglik")
   inits <- replicate(3, list(b = c(3.5, rep(0.3, 5)), 
                              .RNG.name="base::Wichmann-Hill", .RNG.seed = NA), simplify = FALSE)
   for(i in 1:3){ inits[[i]]$.RNG.seed <- i }
   
-  library(runjags)
-  m <- read.jagsfile("bayesmodel/model_laplace_ver3.R")
-  post <- run.jags(m$model, monitor = para, data = Djags,
+  m <- read.jagsfile("bayes_model/model_laplace.R")
+  post <- run.jags(m$model, monitor = para, data = data_jags,
                    n.chains = 3, inits = inits, method = "parallel",
                    burnin = burn, sample = Sample, adapt = n.ad, thin = n.thin,
                    n.sims = 3, modules = "glm")
