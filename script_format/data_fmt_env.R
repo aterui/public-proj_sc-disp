@@ -107,6 +107,6 @@
     summarize(mu_temp = mean(temperature)) %>% 
     drop_na(occasion)
   
-  write_csv(dat_wl_summary, "data_fmt/temp_summary.csv")
+  write_csv(dat_temp_summary, "data_fmt/temp_summary.csv")
   
   
