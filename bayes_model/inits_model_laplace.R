@@ -2,7 +2,7 @@
 # library -----------------------------------------------------------------
 
   rm(list = ls(all.names = TRUE))
-  pacman::p_load(tidyverse, runjags)
+  pacman::p_load(tidyverse, runjags, loo)
 
 # read data ---------------------------------------------------------------
   
@@ -64,19 +64,22 @@
                    burnin = burn, sample = Sample, adapt = n.ad, thin = n.thin,
                    n.sims = 3, modules = "glm")
   
-# Output ----
+
+# output ------------------------------------------------------------------
+
   source("function_jags2bugs.R")
   re <- jags2bugs(post$mcmc)
   print(re, 2)
   PP <- sapply(1:ncol(re$sims.matrix), function(x) mean(re$sims.matrix[,x]>0) )
   PN <- 1-PP
 
-# WAIC ----
-  library(loo)
+# waic --------------------------------------------------------------------
+  
   loglik <- sapply(XID, function(i) unlist( post$mcmc[, paste0("loglik[", i, "]") ] ) )
   WAIC <- waic(loglik)
+
+# save output -------------------------------------------------------------
   
-# Save output  
   #write.csv(cbind(re$summary[,c(1,5,3,7,8,9)], PP, PN), paste0("result/summary_", n.iter, species, Sys.Date(), FQ,".csv") )
   #write.csv(re$sims.matrix, paste0("result/MCMCsample_", n.iter, species, Sys.Date(), FQ,".csv") )
   #write.csv(WAIC$estimates, paste0("result/WAIC_", n.iter, species, Sys.Date(), FQ,".csv") )
