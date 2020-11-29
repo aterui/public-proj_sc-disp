@@ -19,7 +19,7 @@ README
   - `inits_model_laplace.R` - R script to run a Bayes model
   - `model_laplace.R` - JAGS code for a Laplace dispersal model
 
-### Figure & Tables
+### Figures & Tables
 
   - `si_figure_hist_bhc` - histogram for dispersal distance of bluehead
     chub
