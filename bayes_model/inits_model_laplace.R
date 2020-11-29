@@ -13,6 +13,10 @@
   
 # data prep ---------------------------------------------------------------
   
+  ## select species
+  species <- "BHC"
+  dat_raw <- dat_raw[dat_raw$species == species, ]
+  
   ## data transformation (section number to meters)
   dat <- dat_raw %>% 
     mutate(Y = 1 - is.na(section_2),
@@ -30,15 +34,11 @@
            interval = julian_2 - julian_1,
            upper_limit = ifelse(stream == "Indian", 740, 520))
 
-  ## select species
-  species <- "CRC"
-  dat <- dat[dat$species == species, ]
-  
   ## row IDs with observations
   XID <- which(!is.na(dat$X))
   
   ## Flow metrics
-  FQ <- 'q50'
+  FQ <- 'q99'
   if(FQ == 'q99') {
     Flow <- dat$q99_event
   } else {
@@ -94,5 +94,5 @@
 # save output -------------------------------------------------------------
   
   write.csv(result[!str_detect(rownames(result), "loglik"),], paste0("result/summary_", n.iter, species, FQ,".csv") )
-  write.csv(WAIC$estimates, paste0("result/WAIC_", n.iter, species, FQ,".csv") )
+  write.csv(WAIC$estimates, paste0("result/waic_", n.iter, species, FQ,".csv") )
   
