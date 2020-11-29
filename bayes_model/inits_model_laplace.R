@@ -17,12 +17,9 @@
   # data with questionable length are removed ('growth' with less than -5 mm)
   dat <- dat_raw %>% 
     mutate(Y = 1 - is.na(section_2),
-           X = section_2,
-           Mu = section_1,
-           stream_dummy = ifelse(stream == "Indian", 0, 1)) %>% 
-    mutate(diff_length = length_2 - length_1) %>%
-    mutate(diff_length = ifelse(is.na(diff_length), 0, diff_length)) %>% 
-    filter(diff_length > -6)    
+           X = section_2 * 20 - 10,
+           Mu = section_1 * 20 - 10,
+           stream_dummy = ifelse(stream == "Indian", 0, 1))
   
   dat <- dat %>% 
     left_join(flow, by = c("stream", "occasion")) %>% 
