@@ -38,7 +38,7 @@
   XID <- which(!is.na(dat$X))
   
   ## Flow metrics
-  FQ <- 'q99'
+  FQ <- 'q50'
   if(FQ == 'q99') {
     Flow <- dat$q99_event
   } else {
