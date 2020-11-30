@@ -23,7 +23,15 @@ This PDF file is supporting information for "Non-random dispersal in sympatric s
 **Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured including repeated counts of the same individuals.
 
 ```{r, echo = FALSE, results='asis'}
-source("si_table_s1.R")
+source("si_table_mr_summary.R")
+```
+
+\pagebreak
+
+**Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use high flows (the occurrence of flow events exceeding the 99th percentile of daily water levels) and median water levels as a metric of stream flow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+
+```{r, echo = FALSE, results='asis'}
+source("si_table_waic.R")
 ```
 
 \pagebreak
