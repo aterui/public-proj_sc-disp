@@ -14,7 +14,7 @@
 # data prep ---------------------------------------------------------------
   
   ## select species
-  species <- "BHC"
+  species <- "STJ"
   dat_raw <- dat_raw[dat_raw$species == species, ]
   
   ## data transformation (section number to meters)
@@ -38,7 +38,7 @@
   XID <- which(!is.na(dat$X))
   
   ## Flow metrics
-  FQ <- 'q50'
+  FQ <- 'q99'
   if(FQ == 'q99') {
     Flow <- dat$q99_event
   } else {
@@ -71,7 +71,7 @@
   
   para <- c("b", "sigma", "mu.phi", "sigma.phi", "mu", "sigma", "loglik")
   inits <- replicate(3, list(b = c(3.5, rep(0.3, 5)), 
-                             .RNG.name="base::Wichmann-Hill", .RNG.seed = NA),
+                             .RNG.name = "base::Wichmann-Hill", .RNG.seed = NA),
                      simplify = FALSE)
   
   for(i in 1:3){
@@ -93,6 +93,6 @@
 
 # save output -------------------------------------------------------------
   
-  write.csv(result[!str_detect(rownames(result), "loglik"),], paste0("result/summary_", n.iter, species, FQ,".csv") )
-  write.csv(WAIC$estimates, paste0("result/waic_", n.iter, species, FQ,".csv") )
+  write.csv(result[!str_detect(rownames(result), "loglik"),], paste0("bayes_estimate/summary_", n.iter, species, FQ,".csv") )
+  write.csv(WAIC$estimates, paste0("bayes_waic/waic_", n.iter, species, FQ,".csv") )
   
