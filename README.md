@@ -4,15 +4,34 @@ README
 ## Data
 
   - `data_fmt/` - formatted data
-  - `data_org/` - original data
+      - `vector_data.csv` - formatted fish data
+          - `tag_id`: PIT tag id
+          - `occasion`: sampling occasion at capture
+          - `species`: species code
+          - `stream`: stream name
+          - `weight_1`: g wet weight at capture
+          - `length_1`: mm total body length at capture
+          - `section_1`: stream section number at capture
+          - `julian_1`: julian date at capture
+          - `weight_2`: g wet weight at recapture
+          - `length_2`: mm total body length at recapture
+          - `section_2`: stream section number at recapture
+          - `julian_2`: julian date at recapture
+          - `occasion_2`: sampling occasion at recapture
+          - `diff_length`: length difference between capture and
+            recapture
+      - `flow_summary.csv` - formatted water level data
+          - `occasion`: sampling occasion
+          - `stream`: stream name
+          - `q50`: median water level
+          - `q99_event`: occurrence of extreme high flows exceeding 99th
+            percentile of daily water levels
+      - `temp_summary.csv` - formatted temperature data
+          - `occasion`: sampling occasion
+          - `stream`: stream name
+          - `mu_temp`: mean temperature
 
 ## Script
-
-### Formatting script
-
-  - `data_fmt_env.R` - format environmental data (water level and
-    temperature)
-  - `data_fmt_fish.R` - format PIT tag data
 
 ### Data analysis (`bayes_model/`)
 
