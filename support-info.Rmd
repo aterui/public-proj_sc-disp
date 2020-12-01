@@ -1,26 +1,26 @@
 ---
-title: "Supporting Information"
-author: "Akira Terui, Seoghyun Kim, Kasey C. Pregler, Yoichiro Kanno"
-output: pdf_document
+title: |
+  | Supporting Information for:
+  | Non-random dispersal in sympatric stream fishes: influences of natural disturbance and body size
+author:
+- Akira Terui^[Department of Biology, University of North Carolina at Greensboro]
+- Seoghyun Kim\footnotemark[1] ^[Department of Forestry and Environmental Conservation, Clemson University] ^[Department of Fish, Wildlife, and Conservation Biology, Colorado State University]
+- Kasey C. Pregler\footnotemark[2] \footnotemark[3]
+- Yoichiro Kanno\footnotemark[2] \footnotemark[3] ^[Graduate Degree Program in Ecology, Colorado State University]
+output:
+  pdf_document:
+    toc: true
 ---
 
 ```{r setup, include = F, warning = F}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-### Overview
-This PDF file is supporting information for "Non-random dispersal in sympatric stream fishes: influences of natural disturbance and body size". This includes:
-
-* Tables S1 - Descriptive statistics for the mark-recapture data
-* Tables S2 - Model comparison using Widely Applicable Information Criterion
-* Tables S3 - Parameter estimates from the Bayesian dispersal model
-* Figures S1 - Frequency distributions for dispersal distance of bluehead chub
-* Figures S2 - Frequency distributions for dispersal distance of creek chub
-* Figures S3 - Frequency distributions for dispersal distance of striped jumprock
-
 \pagebreak
 
-**Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC) and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured including repeated counts of the same individuals.
+## Descriptive statistics for the mark-recapture data
+
+**Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC), and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured, including repeated counts of the same individuals.
 
 ```{r, echo = FALSE, results='asis'}
 source("si_table_mr_summary.R")
@@ -28,7 +28,9 @@ source("si_table_mr_summary.R")
 
 \pagebreak
 
-**Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use high flows (the occurrence of flow events exceeding the 99th percentile of daily water levels) and median water levels as a metric of stream flow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+## Model comparison using Widely Applicable Information Criterion
+
+**Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use the high flow (the occurrence of flow events exceeding the 99th percentile of daily water levels) and the median water level as a metric of streamflow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
 ```{r, echo = FALSE, results='asis'}
 source("si_table_waic.R")
@@ -36,24 +38,50 @@ source("si_table_waic.R")
 
 \pagebreak
 
-**Figure S1** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels.
+## Parameter estimates of the Bayesian dispersal model with the 99th water level
+
+**Table S3** Parameter estimates of the Bayesian dispersal model that uses the occurrence of flow events exceeding the 99th percentile of daily water levels during the whole study period. Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+
+```{r, echo = FALSE, results='asis'}
+source("si_table_est_q99.R")
+```
+
+\pagebreak
+
+## Parameter estimates of the Bayesian dispersal model with the median water level
+
+**Table S4** Parameter estimates of the Bayesian dispersal model that uses the median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+
+```{r, echo = FALSE, results='asis'}
+source("si_table_est_q50.R")
+```
+
+\pagebreak
+
+## Frequency distributions for dispersal distance of bluehead chub
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_bhc.R")
 ```
 
+**Figure S1** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels.
+
 \pagebreak
 
-**Figure S2** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+## Frequency distributions for dispersal distance of creek chub
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_crc.R")
 ```
 
+**Figure S2** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+
 \pagebreak
 
-**Figure S3** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+## Frequency distributions for dispersal distance of striped jumprock
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_stj.R")
 ```
+
+**Figure S3** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
