@@ -1,13 +1,31 @@
 ---
 title: "figures"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
-```{r}
+![]("data_org/figure_map.png")
 
+**Figure 1** Map of study streams (dotted rectangles) in the upper Savannah River basin in South Carolina, USA. Waterways (lakes and streams) are shown in black and forested areas are gray.  Photos show study species from the top to the bottom; bluehead chub (*Nocomis leptocephalus*), creek chub (*Semotilus atromaculatus*), and striped jumprock (*Moxostoma rupicartes*). Photo credit: S. Kim.
+
+\pagebreak
+
+```{r, fig.width = 7, fig.height = 4}
+source('figure_est.R')
 ```
 
+**Figure 2** Parameter estimates of the Bayesian dispersal model. Median estimates (points) and the associated 95% credible intervals (error bars) were reported. Colors distinguish species.
+
+\pagebreak
+
+```{r, fig.width = 9, fig.height = 6}
+source('figure_kernel.R')
+```
+
+**Figure 3** Estimated dispersal kernels for bluehead chub (BHC; upper row), creek chub (CRC; middle row), and striped jumprock (STJ; bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; left column), medium (50th percentile; middle column), and large fish (80th percentile; right column). Black lines are the dispersal kernels of periods with no extreme flows, whereas red lines represent the dispersal kernels of periods with extreme flows exceeding the 99th percentile of daily water levels. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
