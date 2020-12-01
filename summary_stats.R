@@ -5,8 +5,11 @@
   pacman::p_load(tidyverse, egg)
 
 # read data ---------------------------------------------------------------
+  
+  dat <- read_csv('data_fmt/vector_data.csv')
+  
   ## length data
-  dat_length <- read_csv('data_fmt/vector_data.csv') %>% 
+  dat_length <- dat %>% 
     group_by(species) %>% 
     summarise(length20 = quantile(scale(length_1), 0.2),
               length50 = quantile(scale(length_1), 0.5),
@@ -14,7 +17,7 @@
     )
   
   ## length data
-  length_summary <- read_csv('data_fmt/vector_data.csv') %>% 
+  length_summary <- dat %>% 
     group_by(species) %>% 
     summarise(mean = mean(length_1),
               sd = sd(length_1),
