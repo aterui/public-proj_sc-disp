@@ -4,7 +4,5 @@
 .Ruserdata
 *.Rproj
 *old
-data_org
 *.pdf
 *.html
-data_fmt*
