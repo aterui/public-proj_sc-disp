@@ -1,6 +1,7 @@
 
 # library -----------------------------------------------------------------
 
+  rm(list = ls(all.names = TRUE))
   pacman::p_load(tidyverse)
 
 
