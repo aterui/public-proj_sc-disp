@@ -38,10 +38,13 @@ output: github_document
 - `data_fmt_env` - format environmental data
 - `data_fmt_fish` - format fish data
 
-### Data analysis (`bayes_model/`)
+### Data analysis
 
-- `inits_model_laplace.R` - R script to run a Bayes model
-- `model_laplace.R` - JAGS code for a Laplace dispersal model
+- `bayes_estimate/` - estimated parameters of bayesian models
+- `bayes_waic/` - estimated waic
+- `bayes_model/`
+  - `inits_model_laplace` - R script to run a Bayes model
+  - `model_laplace` - JAGS code for a Laplace dispersal model
 
 ### Figures & Tables
 
