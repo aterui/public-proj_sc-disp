@@ -95,6 +95,7 @@
     geom_line(aes(y = y, x = x, color = Flow)) +
     geom_segment(aes(x = 1/rate, xend = 1/rate,
                      y = 0, yend = dexp(1/rate, rate), color = Flow), size = 0.3, lty = 3) +
+    geom_point(aes(x = 1/rate, y = 0, color = Flow), size = 0.5) +
     facet_grid(rows = vars(Species), cols = vars(Size),
                labeller = label_both) +
     scale_color_manual(values = c('salmon', grey(0.2)),
