@@ -24,7 +24,7 @@
   
 # data sort ---------------------------------------------------------------
   
-  ## the first 2 occasions were discarded
+  ## the first 2 occasions were discarded (trial period)
   ## remove individuals capture only at the last occasion 
   ## remove individuals with no tag_id and body length
   dat <- dat %>% 
@@ -101,7 +101,7 @@
 # output ------------------------------------------------------------------
   
   ## merge 1st (capture) and 2nd data (recapture)
-  ## remove data with questionable length data
+  ## remove data with erroneous length data
   dat_merge <- dat1st %>% 
     left_join(dat2nd, by = c("tag_id", "species", "occasion", "stream")) %>% 
     mutate(diff_length = length_2 - length_1) %>%
