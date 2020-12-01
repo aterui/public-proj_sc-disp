@@ -88,7 +88,7 @@
 
 # waic --------------------------------------------------------------------
   
-  loglik <- sapply(XID, function(i) unlist( post$mcmc[, paste0("loglik[", i, "]") ] ) )
+  loglik <- sapply(XID, function(i) unlist(post$mcmc[, paste0("loglik[", i, "]")]))
   WAIC <- waic(loglik)
 
 # save output -------------------------------------------------------------
