@@ -22,6 +22,25 @@ output: github_document
 
 ### Figures & Tables
 
+- `figure_est` - figure for estimated parameters of bayesian dispersal model
+- `figure_kernel` - figure for estimated dispersal kernels
 - `si_figure_hist_bhc` - histogram for dispersal distance of bluehead chub
 - `si_figure_hist_crc` - histogram for dispersal distance of creek chub
 - `si_figure_hist_stj` - histogram for dispersal distance of striped jumprock
+- `si_table_est_q50` - table for estimated parameters of bayesian dispersal model (median flow)
+- `si_table_est_q99` - table for estimated parameters of bayesian dispersal model (high flow)
+- `si_table_mr_summary` - table for descriptive statistics of mark-recapture data
+- `si_table_waic` - table for WAIC comparisons
+
+### rmd files
+
+- `figures` - rmarkdown file to compile figures
+- `support-info` - rmarkdown file to compile supporting information
+
+## Session information
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+sessionInfo()
+```
+
