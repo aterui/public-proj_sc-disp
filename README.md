@@ -3,6 +3,7 @@ README
 
 ## Data
 
+  - `data_org/` - source data for formatting
   - `data_fmt/` - formatted data
       - `vector_data.csv` - formatted fish data
           - `tag_id`: PIT tag id
