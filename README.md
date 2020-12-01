@@ -34,6 +34,11 @@ README
 
 ## Script
 
+### Formatting
+
+  - `data_fmt_env` - format environmental data
+  - `data_fmt_fish` - format fish data
+
 ### Data analysis (`bayes_model/`)
 
   - `inits_model_laplace.R` - R script to run a Bayes model
