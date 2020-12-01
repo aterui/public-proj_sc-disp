@@ -13,8 +13,10 @@
   
 # data prep ---------------------------------------------------------------
   
+  species <- "CRC"
+  FQ <- 'q50'
+  
   ## select species
-  species <- "STJ"
   dat_raw <- dat_raw[dat_raw$species == species, ]
   
   ## data transformation (section number to meters)
@@ -38,7 +40,6 @@
   XID <- which(!is.na(dat$X))
   
   ## Flow metrics
-  FQ <- 'q99'
   if(FQ == 'q99') {
     Flow <- dat$q99_event
   } else {
@@ -48,7 +49,7 @@
 # MCMC setup --------------------------------------------------------------
 
   n.ad <- 100
-  n.iter <- 5E+3
+  n.iter <- 8E+3
   n.thin <- max(3, ceiling(n.iter/500))
   burn <- ceiling(max(10, n.iter/2))
   Sample <- ceiling(n.iter/n.thin)
