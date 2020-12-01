@@ -4,7 +4,6 @@
   rm(list = ls(all.names = TRUE))
   pacman::p_load(tidyverse, kableExtra)
 
-
 # data --------------------------------------------------------------------
 
   dat <- read_csv("data_fmt/vector_data.csv")
@@ -33,3 +32,4 @@
     kable_styling(latex_options = "hold_position")
   
   print(tab)
+  
