@@ -29,8 +29,8 @@
                 values_from = Estimate) 
     
   tab <- dat_tab %>% 
-    kbl(format = "latex", booktabs = TRUE, longtable = TRUE) %>% 
+    kbl(format = "latex", booktabs = TRUE) %>% 
     add_header_above(c("", "WAIC" = 2)) %>% 
-    kable_styling(latex_options = c("repeat_header"))
+    kable_styling(latex_options = "hold_position")
   
   print(tab)
