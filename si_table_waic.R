@@ -1,8 +1,8 @@
 
 # library -----------------------------------------------------------------
 
+  rm(list = ls(all.names = TRUE))
   pacman::p_load(tidyverse, kableExtra)
-
 
 # read data ---------------------------------------------------------------
 
@@ -34,3 +34,4 @@
     kable_styling(latex_options = "hold_position")
   
   print(tab)
+  
