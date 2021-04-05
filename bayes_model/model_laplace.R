@@ -4,25 +4,29 @@ model{
 # priors ------------------------------------------------------------------
 
   ## slope
-  for(k in 1:6){ b[k] ~ dnorm(0,ninfo) }
+  for(k in 1:6) {
+    b[k] ~ dnorm(0,ninfo)
+  }
 
   ## capture prob.
-  for(t in 1:Nt){
+  for(t in 1:Nt) {
     logit(phi.g[t]) <- logit.phi[t]
     logit.phi[t] ~ dnorm(logit.mu.phi, tau.phi)
   }
   
   logit(mu.phi) <- logit.mu.phi
   logit.mu.phi ~ dnorm(0, ninfo)
-  tau.phi ~ dscaled.gamma(2.5, 1); sigma.phi <- 1/sqrt(tau.phi)
+  tau.phi ~ dscaled.gamma(2.5, 1)
+  sigma.phi <- 1/sqrt(tau.phi)
   
   ## interval
   mu ~ dnorm(0, ninfo)
-  tau ~ dscaled.gamma(2.5, 1); sigma <- 1/sqrt(tau)
+  tau ~ dscaled.gamma(2.5, 1)
+  sigma <- 1/sqrt(tau)
 
 # likelihood --------------------------------------------------------------
   
-  for(n in 1:Nsample){
+  for(n in 1:Nsample) {
     ## observation model
     Y[n] ~ dbern(phi[n]*zs[n])
     zs[n] <- step(s[n] - 1.5)
@@ -40,7 +44,7 @@ model{
 
 # log likelihood ----------------------------------------------------------
   
-  for(n in XID){
+  for(n in XID) {
     loglik[n] <- logdensity.dexp(X[n], Mu[n], theta[n])
   }
 
