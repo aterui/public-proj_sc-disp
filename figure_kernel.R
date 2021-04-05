@@ -44,9 +44,9 @@
     pivot_longer(cols = starts_with('len'),
                  names_to = "scenario",
                  values_to = 'rate') %>% 
-    mutate(Size = case_when(str_detect(scenario, 'len20') ~ 'small (20th percentile)',
-                            str_detect(scenario, 'len50') ~ 'medium (50th percentile)',
-                            str_detect(scenario, 'len80') ~ 'large (80th percentile)'),
+    mutate(Size = case_when(str_detect(scenario, 'len20') ~ 'Small (20th percentile)',
+                            str_detect(scenario, 'len50') ~ 'Medium (50th percentile)',
+                            str_detect(scenario, 'len80') ~ 'Large (80th percentile)'),
            Flow = case_when(str_detect(scenario, 'base') ~ 'With no disturbance',
                             str_detect(scenario, 'high') ~ 'With disturbance')) %>% 
     mutate(Size = factor(Size, levels = unique(Size)))
@@ -92,14 +92,16 @@
   x <- 0:500
   
   g <- ggplot(dat_pred) +
-    geom_line(aes(y = y, x = x, color = Flow)) +
+    geom_line(aes(y = y, x = x, color = Size)) +
     geom_segment(aes(x = 1/rate, xend = 1/rate,
-                     y = 0, yend = dexp(1/rate, rate), color = Flow), size = 0.3, lty = 3) +
-    geom_point(aes(x = 1/rate, y = 0, color = Flow), size = 0.5) +
-    facet_grid(rows = vars(Species), cols = vars(Size),
+                     y = 0, yend = dexp(1/rate, rate),
+                     color = Size),
+                 size = 0.3, lty = 3) +
+    geom_point(aes(x = 1/rate, y = 0, color = Size), size = 0.5) +
+    facet_grid(rows = vars(Species),
+               cols = vars(Flow),
                labeller = label_both) +
-    scale_color_manual(values = c('salmon', grey(0.2)),
-                       name = NULL) +
+    scale_color_hue(name = "Body size") +
     xlab('Distance from origin (m)') +
     ylab('Probability density')
   
