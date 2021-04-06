@@ -11,10 +11,18 @@
   temp <- read.csv("data_fmt/temp_summary.csv")
   n_distinct(dat_raw$tag_id)
   
-  var_set <- expand.grid(species = c("BHC", "CRC", "STJ"),
+  var_set <- expand.grid(species = unique(dat_raw$species),
                          flow = c("q50", "q99"))
   
-
+# MCMC setup --------------------------------------------------------------
+  
+  n.ad <- 100
+  n.iter <- 8E+3
+  n.thin <- max(3, ceiling(n.iter/500))
+  burn <- ceiling(max(10, n.iter/2))
+  Sample <- ceiling(n.iter/n.thin)
+  
+  
 # run jags ----------------------------------------------------------------
 
 for(i in 1:nrow(var_set)) {
@@ -25,10 +33,10 @@ for(i in 1:nrow(var_set)) {
     FQ <- var_set$flow[i]
     
     ## select species
-    dat_raw <- dat_raw[dat_raw$species == species, ]
+    dat <- dat_raw[dat_raw$species == species, ]
     
     ## data transformation (section number to meters)
-    dat <- dat_raw %>% 
+    dat <- dat %>% 
       mutate(Y = 1 - is.na(section_2),
              X = section_2 * 20 - 10,
              Mu = section_1 * 20 - 10,
@@ -57,14 +65,6 @@ for(i in 1:nrow(var_set)) {
       Flow <- dat$scl_q50
       para <- c("b", "sigma", "mu.phi", "sigma.phi", "mu", "sigma", "loglik")
     } 
-    
-  # MCMC setup --------------------------------------------------------------
-  
-    n.ad <- 100
-    n.iter <- 8E+3
-    n.thin <- max(3, ceiling(n.iter/500))
-    burn <- ceiling(max(10, n.iter/2))
-    Sample <- ceiling(n.iter/n.thin)
     
   # data for JAGS -----------------------------------------------------------
     
