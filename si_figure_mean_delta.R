@@ -26,7 +26,9 @@
     mutate(x_id = as.numeric(str_remove_all(.$x_id, pattern = "\\[|\\]")))
   
   ## fish data
-  dat_fish <- read_csv('data_fmt/vector_data.csv') %>% 
+  dat_fish <- read_csv('data_fmt/vector_data.csv')
+    
+  dat_length <- dat_fish %>% 
     group_by(species) %>% 
     summarize(x_id = 1:100,
               length = seq(min(length_1, na.rm = T),
@@ -36,7 +38,7 @@
   
   ## merge
   dat_pred <- dat_pred %>% 
-    left_join(dat_fish, by = c("x_id", "species"))
+    left_join(dat_length, by = c("x_id", "species"))
   
 
 # plot theme --------------------------------------------------------------
@@ -73,7 +75,7 @@
                     ymax = upper,
                     x = length,
                     fill = Flow),
-                    alpha = 0.2) +
+                alpha = 0.2) +
     geom_line(aes(x = length, y = median, color = Flow)) +
     facet_wrap(facets = ~ species, nrow = 1,
                scales = "free_x") + 
