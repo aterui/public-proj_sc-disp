@@ -41,12 +41,12 @@
 # plot --------------------------------------------------------------------
 
   ggplot(dat_pred) +
-    geom_ribbon(aes(ymin = exp(lower),
-                    ymax = exp(upper),
+    geom_ribbon(aes(ymin = lower,
+                    ymax = upper,
                     x = length,
                     fill = Flow),
                     alpha = 0.2) +
-    geom_line(aes(x = length, y = exp(median), color = Flow)) +
+    geom_line(aes(x = length, y = median, color = Flow)) +
     facet_wrap(facets = ~ species, nrow = 1,
                scales = "free_x") + 
     ylab("Mean dispersal distance (m)") +
