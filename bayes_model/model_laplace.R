@@ -51,17 +51,17 @@ model{
 # prediction --------------------------------------------------------------
   
   for(i in 1:100) {
-    delta_wd[i] <- b[1] + b[2] * 0 + b[3] * X_length[i] + b[4] * 0 * X_length[i] + b[6] * 0.5   
-    delta_wod[i] <- b[1] + b[2] * 1 + b[3] * X_length[i] + b[4] * 1 * X_length[i] + b[6] * 0.5   
+    delta_wod[i] <- b[1] + b[2] * 0 + b[3] * X_length[i] + b[4] * 0 * X_length[i] + b[6] * 0.5   
+    delta_wd[i] <- b[1] + b[2] * 1 + b[3] * X_length[i] + b[4] * 1 * X_length[i] + b[6] * 0.5   
   }
   
-  delta_l20_wd <- b[1] + b[2] * 0 + b[3] * L20 + b[4] * 0 * L20 + b[6] * 0.5   
-  delta_l20_wod <- b[1] + b[2] * 1 + b[3] * L20 + b[4] * 1 * L20 + b[6] * 0.5   
+  delta_l20_wod <- b[1] + b[2] * 0 + b[3] * L20 + b[4] * 0 * L20 + b[6] * 0.5   
+  delta_l20_wd <- b[1] + b[2] * 1 + b[3] * L20 + b[4] * 1 * L20 + b[6] * 0.5   
 
-  delta_l50_wd <- b[1] + b[2] * 0 + b[3] * L50 + b[4] * 0 * L50 + b[6] * 0.5   
-  delta_l50_wod <- b[1] + b[2] * 1 + b[3] * L50 + b[4] * 1 * L50 + b[6] * 0.5   
+  delta_l50_wod <- b[1] + b[2] * 0 + b[3] * L50 + b[4] * 0 * L50 + b[6] * 0.5   
+  delta_l50_wd <- b[1] + b[2] * 1 + b[3] * L50 + b[4] * 1 * L50 + b[6] * 0.5   
 
-  delta_l80_wd <- b[1] + b[2] * 0 + b[3] * L80 + b[4] * 0 * L80 + b[6] * 0.5   
-  delta_l80_wod <- b[1] + b[2] * 1 + b[3] * L80 + b[4] * 1 * L80 + b[6] * 0.5   
+  delta_l80_wod <- b[1] + b[2] * 0 + b[3] * L80 + b[4] * 0 * L80 + b[6] * 0.5   
+  delta_l80_wd <- b[1] + b[2] * 1 + b[3] * L80 + b[4] * 1 * L80 + b[6] * 0.5   
   
 }
