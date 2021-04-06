@@ -12,11 +12,12 @@
   dat_tab <- lapply(filenames, read_csv) %>% 
     bind_rows() %>% 
     mutate(Species = species) %>% 
+    filter(!str_detect(X1, pattern = "delta")) %>% 
     select(Species,
            Effect = X1,
-           Estimate = Median,
-           'Lower 95% CI' = Lower95,
-           'Upper 95% CI' = Upper95) %>% 
+           Estimate = "50%",
+           'Lower 95% CI' = "2.5%",
+           'Upper 95% CI' = "97.5%") %>% 
     filter(!(Effect %in% c('mu', 'sigma'))) %>% 
     mutate(Effect = case_when(Effect == 'b[1]' ~ 'Intercept',
                               Effect == 'b[2]' ~ 'Median flow',
