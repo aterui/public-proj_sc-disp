@@ -38,9 +38,37 @@
   dat_pred <- dat_pred %>% 
     left_join(dat_fish, by = c("x_id", "species"))
   
-# plot --------------------------------------------------------------------
 
-  ggplot(dat_pred) +
+# plot theme --------------------------------------------------------------
+
+  ## plot theme
+  plt_theme <- theme_bw() + theme(
+    plot.background = element_blank(),
+    
+    panel.background = element_rect(grey(0.99)),
+    panel.border = element_rect(),
+    
+    panel.grid = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    
+    strip.background = element_blank(),
+    strip.text.x = element_text(size = 10),
+    strip.text.y = element_text(size = 10),
+    axis.title = element_text(size = 10)
+  )
+  
+  
+# plot --------------------------------------------------------------------
+  
+  theme_set(plt_theme)
+  
+  g <- ggplot(dat_pred) +
     geom_ribbon(aes(ymin = lower,
                     ymax = upper,
                     x = length,
@@ -52,3 +80,4 @@
     ylab("Mean dispersal distance (m)") +
     xlab("Total body length (mm)")
   
+  print(g)
