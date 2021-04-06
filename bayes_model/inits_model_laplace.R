@@ -100,12 +100,20 @@ for(i in 1:nrow(var_set)) {
     }
     
     m <- read.jagsfile("bayes_model/model_laplace.R")
-    post <- run.jags(m$model, monitor = para, data = data_jags,
-                     n.chains = 3, inits = inits, method = "parallel",
-                     burnin = burn, sample = Sample, adapt = n.ad, thin = n.thin,
-                     n.sims = 3, modules = "glm")
+    post <- run.jags(m$model,
+                     monitor = para,
+                     data = data_jags,
+                     n.chains = 3,
+                     inits = inits,
+                     method = "parallel",
+                     burnin = burn,
+                     sample = Sample,
+                     adapt = n.ad,
+                     thin = n.thin,
+                     n.sims = 3,
+                     modules = "glm")
   
-    result <- summary(post)
+    result <- MCMCvis::MCMCsummary(post$mcmc)
   
   # waic --------------------------------------------------------------------
     
