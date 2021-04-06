@@ -23,7 +23,7 @@
     mutate(Species = rep(c("BHC", "CRC", "STJ"), each = nrow(list_data[[1]]))) %>% 
     filter(X1 %in% c('b[1]', 'b[2]', 'b[3]', 'b[4]', 'b[6]')) %>% 
     select(Effect = X1,
-           Beta = Median,
+           Beta = "50%",
            Species) %>%
     left_join(dat_length, by = c('Species' = 'species')) %>% 
     mutate(flow0 = 0,
