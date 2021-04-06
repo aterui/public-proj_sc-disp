@@ -15,9 +15,9 @@
     mutate(Species = rep(c("Bluehead chub", "Creek chub", "Striped jumprock"), each = nrow(list_data[[1]]))) %>% 
     select(Species,
            Effect = X1,
-           Estimate = Median,
-           Lower95,
-           Upper95) %>% 
+           Estimate = "50%",
+           Lower95 = "97.5%",
+           Upper95 = "2.5%") %>% 
     filter(str_detect(Effect, "b")) %>% 
     mutate(Effect = case_when(Effect == 'b[1]' ~ 'Intercept',
                               Effect == 'b[2]' ~ 'High flow',
