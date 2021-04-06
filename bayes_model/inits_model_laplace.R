@@ -60,7 +60,8 @@ for(i in 1:nrow(var_set)) {
       Flow <- dat$q99_event
       para <- c("b", "sigma", "mu.phi", "sigma.phi", "mu", "sigma", "loglik",
                 "delta_wd", "delta_wod",
-                "delta_l20_wd", "delta_l50_wd", "delta_l80_wd")
+                "delta_l20_wd", "delta_l50_wd", "delta_l80_wd",
+                "delta_l20_wod", "delta_l50_wod", "delta_l80_wod")
     } else {
       Flow <- dat$scl_q50
       para <- c("b", "sigma", "mu.phi", "sigma.phi", "mu", "sigma", "loglik")
@@ -91,8 +92,10 @@ for(i in 1:nrow(var_set)) {
                                      length = 100)
                       )
     
-    inits <- replicate(3, list(b = c(3.5, rep(0.3, 5)), 
-                               .RNG.name = "base::Wichmann-Hill", .RNG.seed = NA),
+    inits <- replicate(3,
+                       list(b = c(3.5, rep(0.3, 5)), 
+                               .RNG.name = "base::Wichmann-Hill",
+                               .RNG.seed = NA),
                        simplify = FALSE)
     
     for(i in 1:3) {
