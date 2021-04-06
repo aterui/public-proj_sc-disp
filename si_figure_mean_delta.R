@@ -27,6 +27,10 @@
   
   ## fish data
   dat_fish <- read_csv('data_fmt/vector_data.csv')
+  
+  dat_quantile <- dat_fish %>% 
+    group_by(species) %>% 
+    summarize(q = quantile(length_1, c(0.2, 0.5, 0.8)))
     
   dat_length <- dat_fish %>% 
     group_by(species) %>% 
@@ -77,6 +81,8 @@
                     fill = Flow),
                 alpha = 0.2) +
     geom_line(aes(x = length, y = median, color = Flow)) +
+    geom_point(data = dat_quantile,
+               aes(x = q, y = 0), shape = 25) + 
     facet_wrap(facets = ~ species, nrow = 1,
                scales = "free_x") + 
     ylab("Mean dispersal distance (m)") +
