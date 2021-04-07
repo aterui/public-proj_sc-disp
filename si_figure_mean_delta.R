@@ -20,8 +20,8 @@
            param_id = str_remove_all(.$X1, pattern = "\\[.{1,}\\]")) %>% 
     filter(param_id %in% c("delta_wd", "delta_wod")) %>% 
     mutate(Flow = ifelse(str_detect(.$X1, "wd"),
-                         "with disturbance",
-                         "with no disturbance"),
+                         "with high flow",
+                         "with no high flow"),
            x_id = str_extract_all(.$X1, pattern = "\\[.{1,}\\]")) %>% 
     mutate(x_id = as.numeric(str_remove_all(.$x_id, pattern = "\\[|\\]")))
   
