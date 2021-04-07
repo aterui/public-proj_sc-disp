@@ -17,7 +17,7 @@
     sample_n(10) %>% 
     pull(tag_id)
   
-  dat %>% 
+  g <- dat %>% 
     filter(tag_id %in% tag_id_rep) %>% 
     ggplot() +
     geom_point(aes(x = occasion, y = section_1, color = tag_id),
@@ -29,3 +29,5 @@
     xlab("Period") +
     theme_bw() +
     theme(legend.position = "none")
+  
+  print(g)
