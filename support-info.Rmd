@@ -18,7 +18,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 \pagebreak
 
-## Descriptive statistics for the mark-recapture data
+# Tables
+
+## Table S1 Descriptive statistics for the mark-recapture data
 
 **Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC), and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured, including repeated counts of the same individuals.
 
@@ -28,7 +30,7 @@ source("si_table_mr_summary.R")
 
 \pagebreak
 
-## Model comparison using Widely Applicable Information Criterion
+## Table S2 Model comparison using Widely Applicable Information Criterion
 
 **Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use the high flow (the occurrence of flow events exceeding the 99th percentile of daily water levels) and the median water level as a metric of streamflow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
@@ -38,7 +40,7 @@ source("si_table_waic.R")
 
 \pagebreak
 
-## Parameter estimates of the Bayesian dispersal model with the 99th water level
+## Table S3 Parameter estimates of the Bayesian dispersal model with the 99th water level
 
 **Table S3** Parameter estimates of the Bayesian dispersal model that uses the occurrence of flow events exceeding the 99th percentile of daily water levels during the whole study period. Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
@@ -48,7 +50,7 @@ source("si_table_est_q99.R")
 
 \pagebreak
 
-## Parameter estimates of the Bayesian dispersal model with the median water level
+## Table S4 Parameter estimates of the Bayesian dispersal model with the median water level
 
 **Table S4** Parameter estimates of the Bayesian dispersal model that uses the median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
@@ -58,7 +60,9 @@ source("si_table_est_q50.R")
 
 \pagebreak
 
-## Frequency distributions for dispersal distance of bluehead chub
+# Figures
+
+## Figure S1 Frequency distributions for dispersal distance of bluehead chub
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_bhc.R")
@@ -68,7 +72,7 @@ source("si_figure_hist_bhc.R")
 
 \pagebreak
 
-## Frequency distributions for dispersal distance of creek chub
+## Figure S2 Frequency distributions for dispersal distance of creek chub
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_crc.R")
@@ -78,10 +82,30 @@ source("si_figure_hist_crc.R")
 
 \pagebreak
 
-## Frequency distributions for dispersal distance of striped jumprock
+## Figure S3 Frequency distributions for dispersal distance of striped jumprock
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_stj.R")
 ```
 
 **Figure S3** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+
+\pagebreak
+
+## Figure S4 Estimated mean dispersal distance
+
+```{r, echo = FALSE, fig.width = 10, fig.height = 3}
+source("si_figure_mean_delta.R")
+```
+
+**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species (BHC: bluehead chub, CRC: creek chub, STJ: striped jumprock) while colors represent presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
+
+\pagebreak
+
+## Figure S5 Relocation history
+
+```{r, echo = FALSE, fig.width = 10, fig.height = 3}
+source("si_figure_move_history.R")
+```
+
+**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species (BHC: bluehead chub, CRC: creek chub, STJ: striped jumprock).
