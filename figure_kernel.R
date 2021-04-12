@@ -8,7 +8,10 @@
   
   ## length data
   dat_length <- read_csv('data_fmt/vector_data.csv') %>% 
-    group_by(species) %>% 
+    mutate(Species = case_when(species == "BHC" ~ "Bluehead chub",
+                               species == "CRC" ~ "Creek chub",
+                               species == "STJ" ~ "Striped jumprock")) %>% 
+    group_by(Species) %>% 
     summarise(length20 = quantile(scale(length_1), 0.2),
               length50 = quantile(scale(length_1), 0.5),
               length80 = quantile(scale(length_1), 0.8)
@@ -20,12 +23,13 @@
   
   coef <- list_data %>% 
     bind_rows() %>% 
-    mutate(Species = rep(c("BHC", "CRC", "STJ"), each = nrow(list_data[[1]]))) %>% 
+    mutate(Species = rep(c("Bluehead chub", "Creek chub", "Striped jumprock"),
+                         each = nrow(list_data[[1]]))) %>% 
     filter(X1 %in% c('b[1]', 'b[2]', 'b[3]', 'b[4]', 'b[6]')) %>% 
     select(Effect = X1,
            Beta = "50%",
            Species) %>%
-    left_join(dat_length, by = c('Species' = 'species')) %>% 
+    left_join(dat_length, by = "Species") %>% 
     mutate(flow0 = 0,
            flow1 = 1)
   

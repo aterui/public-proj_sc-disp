@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 ![]("data_org/figure_map.png")
 
-**Figure 1** Map of study streams (dotted rectangles) in the upper Savannah River basin in South Carolina, USA. Waterways (lakes and streams) are shown in black and forested areas are gray.  Photos show study species from the top to the bottom; bluehead chub (*Nocomis leptocephalus*), creek chub (*Semotilus atromaculatus*), and striped jumprock (*Moxostoma rupicartes*). Photo credit: S. Kim.
+**Figure 1** Locations of study streams (dotted rectangles) in the upper Savannah River basin in South Carolina, USA. Waterways (lakes and streams) are shown in black and forested areas are gray.  Photos show study species from the top to the bottom; bluehead chub (*Nocomis leptocephalus*), creek chub (*Semotilus atromaculatus*), and striped jumprock (*Moxostoma rupicartes*). Photo credit: S. Kim.
 
 \pagebreak
 
@@ -26,4 +26,4 @@ source('figure_est.R')
 source('figure_kernel.R')
 ```
 
-**Figure 3** Estimated dispersal kernels for bluehead chub (BHC; upper row), creek chub (CRC; middle row), and striped jumprock (STJ; bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with extreme flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no extreme flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
+**Figure 3** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with extreme flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no extreme flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
