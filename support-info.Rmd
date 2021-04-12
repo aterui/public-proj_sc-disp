@@ -98,7 +98,7 @@ source("si_figure_hist_stj.R")
 source("si_figure_mean_delta.R")
 ```
 
-**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species (BHC: bluehead chub, CRC: creek chub, STJ: striped jumprock) while colors represent presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
+**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species while colors represent presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
 
 \pagebreak
 
@@ -108,4 +108,4 @@ source("si_figure_mean_delta.R")
 source("si_figure_move_history.R")
 ```
 
-**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species (BHC: bluehead chub, CRC: creek chub, STJ: striped jumprock).
+**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from the Indian creek while triangles representing those from the Todd creek. Note that section 1 is the most downstream section.

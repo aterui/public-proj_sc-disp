@@ -16,7 +16,8 @@
     rename(lower = "2.5%",
            median = "50%",
            upper = "97.5%") %>% 
-    mutate(species = rep(c("BHC", "CRC", "STJ"), each = nrow(list_data[[1]])),
+    mutate(Species = rep(c("Bluehead chub", "Creek chub", "Striped jumprock"),
+                         each = nrow(list_data[[1]])),
            param_id = str_remove_all(.$X1, pattern = "\\[.{1,}\\]")) %>% 
     filter(param_id %in% c("delta_wd", "delta_wod")) %>% 
     mutate(Flow = ifelse(str_detect(.$X1, "wd"),
@@ -26,14 +27,17 @@
     mutate(x_id = as.numeric(str_remove_all(.$x_id, pattern = "\\[|\\]")))
   
   ## fish data
-  dat_fish <- read_csv('data_fmt/vector_data.csv')
+  dat_fish <- read_csv('data_fmt/vector_data.csv') %>% 
+    mutate(Species = case_when(species == "BHC" ~ "Bluehead chub",
+                               species == "CRC" ~ "Creek chub",
+                               species == "STJ" ~ "Striped jumprock"))
   
   dat_quantile <- dat_fish %>% 
-    group_by(species) %>% 
+    group_by(Species) %>% 
     summarize(q = quantile(length_1, c(0.2, 0.5, 0.8)))
     
   dat_length <- dat_fish %>% 
-    group_by(species) %>% 
+    group_by(Species) %>% 
     summarize(x_id = 1:100,
               length = seq(min(length_1, na.rm = T),
                            max(length_1, na.rm = T),
@@ -42,7 +46,7 @@
   
   ## merge
   dat_pred <- dat_pred %>% 
-    left_join(dat_length, by = c("x_id", "species"))
+    left_join(dat_length, by = c("x_id", "Species"))
   
 
 # plot theme --------------------------------------------------------------
@@ -83,7 +87,7 @@
     geom_line(aes(x = length, y = median, color = Flow)) +
     geom_point(data = dat_quantile,
                aes(x = q, y = 0), shape = 25) + 
-    facet_wrap(facets = ~ species, nrow = 1,
+    facet_wrap(facets = ~ Species, nrow = 1,
                scales = "free_x") + 
     ylab("Mean dispersal distance (m)") +
     xlab("Total body length (mm)")
