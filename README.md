@@ -1,6 +1,17 @@
 README
 ================
 
+# Article Information
+
+**Title**: Non-random dispersal in sympatric stream fishes: influences
+of natural disturbance and body size
+
+**Author**: Akira Terui, Seoghyun Kim, Kasey C. Pregler, Yoichiro Kanno
+
+**Journal**: Freshwater Biology
+
+# Description
+
 ## Data
 
 -   `data_org/` - source data for formatting
@@ -69,7 +80,7 @@ README
     mark-recapture data
 -   `si_table_waic` - table for WAIC comparisons
 
-### rmd files
+### Rmarkdown (.Rmd) files
 
 -   `figures` - rmarkdown file to compile figures
 -   `support-info` - rmarkdown file to compile supporting information
