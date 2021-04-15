@@ -51,8 +51,8 @@
     mutate(Size = case_when(str_detect(scenario, 'len20') ~ 'Small (20th percentile)',
                             str_detect(scenario, 'len50') ~ 'Medium (50th percentile)',
                             str_detect(scenario, 'len80') ~ 'Large (80th percentile)'),
-           Flow = case_when(str_detect(scenario, 'base') ~ 'With no disturbance',
-                            str_detect(scenario, 'high') ~ 'With disturbance')) %>% 
+           Flow = case_when(str_detect(scenario, 'base') ~ 'With no high flow',
+                            str_detect(scenario, 'high') ~ 'With high flow')) %>% 
     mutate(Size = factor(Size, levels = unique(Size)))
   
   ## prediction
