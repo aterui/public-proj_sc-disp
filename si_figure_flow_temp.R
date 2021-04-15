@@ -23,9 +23,9 @@
   temp <- read_csv("data_org/water_temperature.csv") %>% 
     separate(col = Date, into = c("Date", "Time"), sep = "\\s") %>% 
     mutate(Date = as.Date(Date, format = "%Y/%m/%d")) %>% 
-      pivot_longer(cols = c(Todd_Temp, Indian_Temp),
-                   names_to = "stream",
-                   values_to = "temperature") %>% 
+    pivot_longer(cols = c(Todd_Temp, Indian_Temp),
+                 names_to = "stream",
+                 values_to = "temperature") %>% 
     filter(Date >= "2016-01-01") %>% 
     mutate(stream = case_when(stream == "Todd_Temp" ~ "Todd",
                               stream == "Indian_Temp" ~ "Indian"))
