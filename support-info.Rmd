@@ -42,7 +42,7 @@ source("si_table_waic.R")
 
 ## Table S3 Parameter estimates of the Bayesian dispersal model with the 99th water level
 
-**Table S3** Parameter estimates of the Bayesian dispersal model that uses the occurrence of flow events exceeding the 99th percentile of daily water levels during the whole study period. Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S3** Parameter estimates of the Bayesian dispersal model that uses the high flow as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
 ```{r, echo = FALSE, results='asis'}
 source("si_table_est_q99.R")
@@ -108,4 +108,14 @@ source("si_figure_mean_delta.R")
 source("si_figure_move_history.R")
 ```
 
-**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from the Indian creek while triangles representing those from the Todd creek. Note that section 1 is the most downstream section.
+**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from Indian Creek while triangles representing those from Todd Creek. Note that section 1 is the most downstream section.
+
+\pagebreak
+
+## Figure S6 Water level and temperature
+
+```{r, echo = FALSE, fig.width = 7, fig.height = 5}
+source("si_figure_flow_temp.R")
+```
+
+**Figure S6** Daily water level (top row) and temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
