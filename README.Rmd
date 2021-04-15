@@ -1,5 +1,4 @@
 ---
-title: "README"
 output: github_document
 ---
 
@@ -65,6 +64,7 @@ output: github_document
 - `si_figure_hist_stj` - histogram for dispersal distance of striped jumprock
 - `si_figure_mean_delta` - figure for a relationship between mean dispersal distance and body size
 - `si_figure_move_history` - figure for relocation history
+- `si_figure_flow_temp` - figure for water level and temperature
 - `si_table_est_q50` - table for estimated parameters of bayesian dispersal model (median flow)
 - `si_table_est_q99` - table for estimated parameters of bayesian dispersal model (high flow)
 - `si_table_mr_summary` - table for descriptive statistics of mark-recapture data
