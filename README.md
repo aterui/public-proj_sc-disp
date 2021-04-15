@@ -1,5 +1,3 @@
-README
-================
 
 # Article Information
 
@@ -72,6 +70,7 @@ of natural disturbance and body size
 -   `si_figure_mean_delta` - figure for a relationship between mean
     dispersal distance and body size
 -   `si_figure_move_history` - figure for relocation history
+-   `si_figure_flow_temp` - figure for water level and temperature
 -   `si_table_est_q50` - table for estimated parameters of bayesian
     dispersal model (median flow)
 -   `si_table_est_q99` - table for estimated parameters of bayesian
@@ -89,7 +88,7 @@ of natural disturbance and body size
 
     ## R version 4.0.2 (2020-06-22)
     ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-    ## Running under: Windows 10 x64 (build 19042)
+    ## Running under: Windows 10 x64 (build 18363)
     ## 
     ## Matrix products: default
     ## 
