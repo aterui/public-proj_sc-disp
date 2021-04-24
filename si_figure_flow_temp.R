@@ -58,7 +58,7 @@
     geom_hline(aes(yintercept = q99),
                linetype = "dashed") +
     geom_vline(data = dat, aes(xintercept = date),
-               alpha = 0.4,
+               alpha = 0.25,
                linetype = "dotted") +
     facet_wrap(facets = ~ stream) +
     ylab("Water level (m)") + 
@@ -69,7 +69,7 @@
     geom_line(aes(x = Date, y = temperature),
               alpha = 0.5) +
     geom_vline(data = dat, aes(xintercept = date),
-               alpha = 0.4,
+               alpha = 0.25,
                linetype = "dotted") +
     facet_wrap(facets = ~ stream) +
     ylab("Temperature (degree C)")
