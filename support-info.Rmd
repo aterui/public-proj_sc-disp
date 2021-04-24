@@ -42,7 +42,7 @@ source("si_table_waic.R")
 
 ## Table S3 Parameter estimates of the Bayesian dispersal model with the 99th water level
 
-**Table S3** Parameter estimates of the Bayesian dispersal model that uses the high flow as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S3** Parameter estimates of the Bayesian dispersal model that uses "high flow" as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
 ```{r, echo = FALSE, results='asis'}
 source("si_table_est_q99.R")
@@ -52,7 +52,7 @@ source("si_table_est_q99.R")
 
 ## Table S4 Parameter estimates of the Bayesian dispersal model with the median water level
 
-**Table S4** Parameter estimates of the Bayesian dispersal model that uses the median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S4** Parameter estimates of the Bayesian dispersal model that uses median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
 ```{r, echo = FALSE, results='asis'}
 source("si_table_est_q50.R")
@@ -98,7 +98,7 @@ source("si_figure_hist_stj.R")
 source("si_figure_mean_delta.R")
 ```
 
-**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species while colors represent presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
+**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species, while colors represent the presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
 
 \pagebreak
 
@@ -108,7 +108,7 @@ source("si_figure_mean_delta.R")
 source("si_figure_move_history.R")
 ```
 
-**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from Indian Creek while triangles representing those from Todd Creek. Note that section 1 is the most downstream section.
+**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from Indian Creek, while triangles represent those from Todd Creek. Note that section 1 is the most downstream section.
 
 \pagebreak
 
@@ -118,4 +118,4 @@ source("si_figure_move_history.R")
 source("si_figure_flow_temp.R")
 ```
 
-**Figure S6** Daily water level (top row) and temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
+**Figure S6** Daily water level (top row) and hourly water temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
