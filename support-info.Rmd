@@ -13,7 +13,7 @@ output:
 ---
 
 ```{r setup, include = F, warning = F}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 \pagebreak
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 **Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC), and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured, including repeated counts of the same individuals.
 
-```{r, echo = FALSE, results='asis'}
+```{r, results='asis'}
 source("si_table_mr_summary.R")
 ```
 
@@ -34,7 +34,7 @@ source("si_table_mr_summary.R")
 
 **Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use the high flow (the occurrence of flow events exceeding the 99th percentile of daily water levels) and the median water level as a metric of streamflow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
-```{r, echo = FALSE, results='asis'}
+```{r, results='asis'}
 source("si_table_waic.R")
 ```
 
@@ -44,7 +44,7 @@ source("si_table_waic.R")
 
 **Table S3** Parameter estimates of the Bayesian dispersal model that uses "high flow" as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
-```{r, echo = FALSE, results='asis'}
+```{r, results='asis'}
 source("si_table_est_q99.R")
 ```
 
@@ -54,7 +54,7 @@ source("si_table_est_q99.R")
 
 **Table S4** Parameter estimates of the Bayesian dispersal model that uses median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
 
-```{r, echo = FALSE, results='asis'}
+```{r, results='asis'}
 source("si_table_est_q50.R")
 ```
 
@@ -64,7 +64,7 @@ source("si_table_est_q50.R")
 
 ## Figure S1 Frequency distributions for dispersal distance of bluehead chub
 
-```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
+```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_bhc.R")
 ```
 
@@ -74,7 +74,7 @@ source("si_figure_hist_bhc.R")
 
 ## Figure S2 Frequency distributions for dispersal distance of creek chub
 
-```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
+```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_crc.R")
 ```
 
@@ -84,7 +84,7 @@ source("si_figure_hist_crc.R")
 
 ## Figure S3 Frequency distributions for dispersal distance of striped jumprock
 
-```{r, echo = FALSE, fig.width = 10, fig.height = 7.5}
+```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_stj.R")
 ```
 
@@ -94,17 +94,18 @@ source("si_figure_hist_stj.R")
 
 ## Figure S4 Estimated mean dispersal distance
 
-```{r, echo = FALSE, fig.width = 10, fig.height = 3}
-source("si_figure_mean_delta.R")
+```{r, fig.width = 8, fig.height = 7}
+source("si_figure_kernel.R")
 ```
 
-**Figure S4** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species, while colors represent the presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length.
+**Figure S4** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with high flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no high flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
+
 
 \pagebreak
 
 ## Figure S5 Relocation history
 
-```{r, echo = FALSE, fig.width = 10, fig.height = 3}
+```{r, fig.width = 10, fig.height = 3}
 source("si_figure_move_history.R")
 ```
 
@@ -114,7 +115,7 @@ source("si_figure_move_history.R")
 
 ## Figure S6 Water level and temperature
 
-```{r, echo = FALSE, fig.width = 7, fig.height = 5}
+```{r, fig.width = 7, fig.height = 5}
 source("si_figure_flow_temp.R")
 ```
 

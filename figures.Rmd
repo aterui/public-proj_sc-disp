@@ -22,8 +22,9 @@ source('figure_est.R')
 
 \pagebreak
 
-```{r, fig.width = 8, fig.height = 7}
-source('figure_kernel.R')
+```{r, echo = FALSE, fig.width = 10, fig.height = 3}
+source('figure_mean_delta.R')
 ```
 
-**Figure 3** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with high flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no high flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
+**Figure 3** Estimated mean dispersal distance in relation to body size and high flows. Panels distinguish species, while colors represent the presence-absence of high flows (flow events exceeding the 99th percentile of daily water levels). Shades indicate 95% credible intervals of estimated mean dispersal distance. Triangles indicate 20, 50, and 80th percentiles of total body length. See Figure S4 for dispersal kernels.
+
