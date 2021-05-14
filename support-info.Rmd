@@ -92,7 +92,7 @@ source("si_figure_hist_stj.R")
 
 \pagebreak
 
-## Figure S4 Estimated mean dispersal distance
+## Figure S4 Estimated dispersal kernel
 
 ```{r, fig.width = 8, fig.height = 7}
 source("si_figure_kernel.R")
