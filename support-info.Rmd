@@ -62,44 +62,43 @@ source("si_table_est_q50.R")
 
 # Figures
 
-## Figure S1 Frequency distributions for dispersal distance of bluehead chub
+## Figure S1 Water level and temperature
+
+```{r, fig.width = 7, fig.height = 5}
+source("si_figure_flow_temp.R")
+```
+
+**Figure S1** Daily water level (top row) and hourly water temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
+
+\pagebreak
+
+## Figure S2 Frequency distributions for dispersal distance of bluehead chub
 
 ```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_bhc.R")
 ```
 
-**Figure S1** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels.
+**Figure S2** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels.
 
 \pagebreak
 
-## Figure S2 Frequency distributions for dispersal distance of creek chub
+## Figure S3 Frequency distributions for dispersal distance of creek chub
 
 ```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_crc.R")
 ```
 
-**Figure S2** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
+**Figure S3** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
 
 \pagebreak
 
-## Figure S3 Frequency distributions for dispersal distance of striped jumprock
+## Figure S4 Frequency distributions for dispersal distance of striped jumprock
 
 ```{r, fig.width = 10, fig.height = 7.5}
 source("si_figure_hist_stj.R")
 ```
 
-**Figure S3** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
-
-\pagebreak
-
-## Figure S4 Estimated dispersal kernel
-
-```{r, fig.width = 8, fig.height = 7}
-source("si_figure_kernel.R")
-```
-
-**Figure S4** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with high flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no high flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
-
+**Figure S4** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
 
 \pagebreak
 
@@ -113,10 +112,10 @@ source("si_figure_move_history.R")
 
 \pagebreak
 
-## Figure S6 Water level and temperature
+## Figure S6 Estimated dispersal kernel
 
-```{r, fig.width = 7, fig.height = 5}
-source("si_figure_flow_temp.R")
+```{r, fig.width = 8, fig.height = 7}
+source("si_figure_kernel.R")
 ```
 
-**Figure S6** Daily water level (top row) and hourly water temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
+**Figure S6** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with high flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no high flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
