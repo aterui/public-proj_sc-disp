@@ -1,38 +1,52 @@
 ---
-title: |
-  | Supporting Information for:
-  | Non-random dispersal in sympatric stream fishes: influences of natural disturbance and body size
-author:
-- Akira Terui^[Department of Biology, University of North Carolina at Greensboro]
-- Seoghyun Kim\footnotemark[1] ^[Department of Forestry and Environmental Conservation, Clemson University] ^[Department of Fish, Wildlife, and Conservation Biology, Colorado State University]
-- Kasey C. Pregler\footnotemark[2] \footnotemark[3]
-- Yoichiro Kanno\footnotemark[2] \footnotemark[3] ^[Graduate Degree Program in Ecology, Colorado State University]
+knit: (function(inputFile, encoding) {
+        rmarkdown::render(inputFile, encoding = encoding, output_dir = "document_output")
+      })
 output:
-  pdf_document:
-    toc: true
+  word_document:
+    reference_docx: word_format.docx
 ---
 
 ```{r setup, include = F, warning = F}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
+# Supporting Information for: Non-random dispersal in sympatric stream fishes: influences of natural disturbance and body size
+
+**Author**: Akira Terui^1^, Seoghyun Kim^1,2,3^, Kasey Pregler^2,3^, Yoichiro Kanno^2,3,4\*^
+
+**Journal:** Freshwater Biology
+
+**This file includes:**
+
+-   Tables S1 - S4
+
+-   Figures S1 - S6
+
+^1^ 321 McIver Street, Department of Biology, University of North Carolina at Greensboro,
+Greensboro, NC 27402-6170, USA
+
+^2^ 1474 Campus Delivery, Department of Fish, Wildlife, and Conservation Biology, Colorado State University, Fort Collins, CO, 80523-1474, USA
+
+^3^ 261 Lehotsky Hall, Department of Forestry and Environmental Conservation, Clemson University, Clemson, SC, 29634, USA
+
+^4^ 1474 Campus Delivery, Graduate Degree Program in Ecology, Colorado State University, Fort Collins, CO, 80523-1474, USA
+
+\*Corresponding author: Yoichiro Kanno
+
+email: [Yoichiro.Kanno\@colostate.edu](mailto:Yoichiro.Kanno@colostate.edu){.email}
+
 \pagebreak
 
-# Tables
+**Table S1** Descriptive statistics for the mark-recapture data of bluehead chub, creek chub, and striped jumprock. *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured, including repeated counts of the same individuals.
 
-## Table S1 Descriptive statistics for the mark-recapture data
-
-**Table S1** Descriptive statistics for the mark-recapture data of bluehead chub (BHC), creek chub (CRC), and striped jumprock (STJ). *Unique* individuals captured or recaptured are the number of individuals excluding repeated counts of the same individuals. *Total replicate* is the total number of individuals captured or recaptured, including repeated counts of the same individuals.
-
-```{r, results='asis'}
+```{r table_1, results='asis'}
 source("si_table_mr_summary.R")
 ```
 
 \pagebreak
 
-## Table S2 Model comparison using Widely Applicable Information Criterion
-
-**Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use the high flow (the occurrence of flow events exceeding the 99th percentile of daily water levels) and the median water level as a metric of streamflow conditions. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S2** Comparison of Widely Applicable Information Criterion (WAIC) between models that use the high flow (the occurrence of flow events exceeding the 99th percentile of daily water levels) and the median water level as a metric of streamflow conditions.
 
 ```{r, results='asis'}
 source("si_table_waic.R")
@@ -40,82 +54,14 @@ source("si_table_waic.R")
 
 \pagebreak
 
-## Table S3 Parameter estimates of the Bayesian dispersal model with the 99th water level
-
-**Table S3** Parameter estimates of the Bayesian dispersal model that uses "high flow" as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S3** Parameter estimates of the Bayesian dispersal model that uses "high flow" as a measure of stream flows (the occurrence of flow events exceeding the 99th percentile of daily water levels). Median estimates and the associated 95% credible intervals (95% CI) were reported.
 
 ```{r, results='asis'}
 source("si_table_est_q99.R")
 ```
 
-\pagebreak
-
-## Table S4 Parameter estimates of the Bayesian dispersal model with the median water level
-
-**Table S4** Parameter estimates of the Bayesian dispersal model that uses median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported. Species name abbreviations are as follows: BHC, bluehead chub; CRC, creek chub; STJ, striped jumprock
+**Table S4** Parameter estimates of the Bayesian dispersal model that uses median water level as a measure of stream flows (instead of the occurrence of flow events that exceeded the 99th percentile of daily water levels during the whole study period). Median estimates and the associated 95% credible intervals (95% CI) were reported.
 
 ```{r, results='asis'}
 source("si_table_est_q50.R")
 ```
-
-\pagebreak
-
-# Figures
-
-## Figure S1 Water level and temperature
-
-```{r, fig.width = 7, fig.height = 5}
-source("si_figure_flow_temp.R")
-```
-
-**Figure S1** Daily water level (top row) and hourly water temperature (bottom row) of Indian and Todd Creeks. Vertical dotted lines indicate the initial date of each capture-recapture occasion. Horizontal dashed lines in the top row indicate the 99th percentile of daily water levels in each stream.
-
-\pagebreak
-
-## Figure S2 Frequency distributions for dispersal distance of bluehead chub
-
-```{r, fig.width = 10, fig.height = 7.5}
-source("si_figure_hist_bhc.R")
-```
-
-**Figure S2** Frequency distributions for dispersal distance of bluehead chub (*Nocomis leptocephalus*). Data from two streams (Indian and Todd Creeks) were combined. Each panel corresponds to a 2-month sampling interval. Red-colored panels are the sampling intervals with extreme flows exceeding the 99th percentile of daily water levels.
-
-\pagebreak
-
-## Figure S3 Frequency distributions for dispersal distance of creek chub
-
-```{r, fig.width = 10, fig.height = 7.5}
-source("si_figure_hist_crc.R")
-```
-
-**Figure S3** Frequency distributions for dispersal distance of creek chub (*Semotilus atromaculatus*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
-
-\pagebreak
-
-## Figure S4 Frequency distributions for dispersal distance of striped jumprock
-
-```{r, fig.width = 10, fig.height = 7.5}
-source("si_figure_hist_stj.R")
-```
-
-**Figure S4** Frequency distributions for dispersal distance of striped jumprock (*Moxostoma rupicartes*). Data from two streams (Indian and Todd Creeks) were combined. See Figure S1 for details.
-
-\pagebreak
-
-## Figure S5 Relocation history
-
-```{r, fig.width = 10, fig.height = 3}
-source("si_figure_move_history.R")
-```
-
-**Figure S5** Relocation history of selected individuals (10 individuals with > 5 (re)captures were randomly chosen). Colors distinguish individuals of each species. Circles indicate individuals from Indian Creek, while triangles represent those from Todd Creek. Note that section 1 is the most downstream section.
-
-\pagebreak
-
-## Figure S6 Estimated dispersal kernel
-
-```{r, fig.width = 8, fig.height = 7}
-source("si_figure_kernel.R")
-```
-
-**Figure S6** Estimated dispersal kernels for bluehead chub (upper row), creek chub (middle row), and striped jumprock (bottom row). Dispersal kernels are shown separately for small (20th percentile of body size; red), medium (50th percentile; green), and large fish (80th percentile; blue). The left column represents the dispersal kernels of periods with high flows exceeding the 99th percentile of daily water levels whereas the right column is the dispersal kernels of periods with no high flows. Vertical dotted lines are the expected dispersal distance under each dispersal kernel. Note that mean body size varies among study species (striped jumprock > creek chub > bluehead chub; see Results).
