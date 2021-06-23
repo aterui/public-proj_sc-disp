@@ -23,8 +23,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 -   Figures S1 - S6
 
-^1^ 321 McIver Street, Department of Biology, University of North Carolina at Greensboro,
-Greensboro, NC 27402-6170, USA
+^1^ 321 McIver Street, Department of Biology, University of North Carolina at Greensboro, Greensboro, NC 27402-6170, USA
 
 ^2^ 1474 Campus Delivery, Department of Fish, Wildlife, and Conservation Biology, Colorado State University, Fort Collins, CO, 80523-1474, USA
 
