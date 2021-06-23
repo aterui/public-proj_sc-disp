@@ -110,3 +110,11 @@
     ylab('Probability density')
   
   print(g)  
+  
+  
+# output ------------------------------------------------------------------
+  
+  ggsave(filename = "document_output/figure_s06.pdf",
+         width = 8,
+         height = 7)
+  

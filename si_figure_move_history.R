@@ -34,3 +34,11 @@
     theme(legend.position = "none")
   
   print(g)
+  
+  
+# output ------------------------------------------------------------------
+  
+  ggsave(filename = "document_output/figure_s05.pdf",
+         width = 10,
+         height = 3)
+  

@@ -76,3 +76,10 @@
   
   print(g_flow / g_temp)
   
+
+# output ------------------------------------------------------------------
+
+  ggsave(filename = "document_output/figure_s01.pdf",
+         width = 7,
+         height = 5)
+  

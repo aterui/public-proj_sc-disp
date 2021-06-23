@@ -93,3 +93,11 @@
     xlab("Total body length (mm)")
   
   print(g)
+
+    
+# ouput -------------------------------------------------------------------
+
+  ggsave(filename = "document_output/figure_03.pdf",
+         width = 10,
+         height = 3)
+  

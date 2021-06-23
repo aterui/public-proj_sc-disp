@@ -16,20 +16,24 @@
               n_replicate_recap = sum(!is.na(section_2))) %>% 
     ungroup() %>% 
     group_by(stream) %>% 
-    mutate(stream = c(unique(stream), rep("", n()-1)))
+    mutate(stream = c(unique(stream), rep("", n() - 1)),
+           species = case_when(species == "BHC" ~ "Bluehead chub",
+                               species == "CRC" ~ "Creek chub",
+                               species == "STJ" ~ "Striped jumprock")
+           )
   
   tab <- dat_tab %>% 
-    kbl(format = "latex",
+    kbl(format = "pandoc",
         booktabs = TRUE,
         escape = FALSE,
         col.names = linebreak(c('Stream',
-                               'Species',
-                               'Capture\n(unique)',
-                               'Recapture\n(unique)',
-                               'Capture\n(total replicate)',
-                               'Recapture\n(total replicate)'),
+                                'Species',
+                                'Capture (unique)',
+                                'Recapture (unique)',
+                                'Capture (total replicate)',
+                                'Recapture (total replicate)'),
                               align = "c")) %>% 
     kable_styling(latex_options = "hold_position")
-  
+    
   print(tab)
   

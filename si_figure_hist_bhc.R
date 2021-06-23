@@ -39,3 +39,10 @@
     
   print(g)
   
+  
+# output ------------------------------------------------------------------
+  
+  ggsave(filename = "document_output/figure_s02.pdf",
+         width = 10,
+         height = 7.5)
+  

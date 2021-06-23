@@ -20,7 +20,11 @@
     filter(X1 == "waic") %>% 
     mutate(Flow = case_when(Flow == 'q99' ~ "High flow model",
                             Flow == 'q50' ~ "Median flow model",
-                            TRUE ~ as.character(Flow))) %>% 
+                            TRUE ~ as.character(Flow)),
+           Species = case_when(Species == "BHC" ~ "Bluehead chub",
+                               Species == "CRC" ~ "Creek chub",
+                               Species == "STJ" ~ "Striped jumprock")
+    ) %>% 
     select(Species,
            Flow,
            Estimate) %>% 
@@ -29,7 +33,8 @@
                 values_from = Estimate) 
     
   tab <- dat_tab %>% 
-    kbl(format = "latex", booktabs = TRUE) %>% 
+    kbl(format = "pandoc",
+        booktabs = TRUE) %>% 
     add_header_above(c("", "WAIC" = 2)) %>% 
     kable_styling(latex_options = "hold_position")
   

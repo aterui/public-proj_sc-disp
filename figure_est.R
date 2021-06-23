@@ -71,3 +71,11 @@
    ylab(NULL)
   
   print(g)
+  
+
+# output ------------------------------------------------------------------
+
+  ggsave(filename = "document_output/figure_02.pdf",
+         width = 7,
+         height = 4)  
+  
