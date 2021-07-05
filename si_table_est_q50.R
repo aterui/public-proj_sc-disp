@@ -27,7 +27,10 @@
                               Effect == 'b[6]' ~ 'Stream (vs. Indian)',
                               Effect == 'mu.phi' ~ 'Mean recapture prob. ($\\mu_{\\phi}$)',
                               Effect == 'sigma.phi' ~ 'SD of recapture prob. ($\\sigma_{\\phi}$)',
-                              TRUE ~ as.character(Effect)))
+                              TRUE ~ as.character(Effect)),
+           Species = case_when(Species == "BHC" ~ "Bluehead chub",
+                               Species == "CRC" ~ "Creek chub",
+                               Species == "STJ" ~ "Striped jumprock"))
   
   tab <- dat_tab %>% 
     group_by(Species) %>% 

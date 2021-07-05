@@ -20,7 +20,10 @@
     filter(X1 == "waic") %>% 
     mutate(Flow = case_when(Flow == 'q99' ~ "High flow model",
                             Flow == 'q50' ~ "Median flow model",
-                            TRUE ~ as.character(Flow))) %>% 
+                            TRUE ~ as.character(Flow)),
+           Species = case_when(Species == "BHC" ~ "Bluehead chub",
+                               Species == "CRC" ~ "Creek chub",
+                               Species == "STJ" ~ "Striped jumprock")) %>% 
     select(Species,
            Flow,
            Estimate) %>% 

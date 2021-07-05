@@ -16,7 +16,11 @@
               n_replicate_recap = sum(!is.na(section_2))) %>% 
     ungroup() %>% 
     group_by(stream) %>% 
-    mutate(stream = c(unique(stream), rep("", n()-1)))
+    mutate(stream = c(unique(stream),
+                      rep("", n() - 1)),
+           species = case_when(species == "BHC" ~ "Bluehead chub",
+                               species == "CRC" ~ "Creek chub",
+                               species == "STJ" ~ "Striped jumprock"))
   
   tab <- dat_tab %>% 
     kbl(format = "latex",
